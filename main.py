@@ -279,7 +279,7 @@ class Piece:
         self.WEAPON=[(12,12)]
         self.FOOD=[(10,2),(24,1),(39,5),(51,5),(29,15)]
         self.WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
-        self.MONSTER = [(21, 29)]
+        self.MONSTER = [(21, 29), (8, 39)]
         self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
         for a in range(len(ROOMS_HEIGHT)):
             for i in range(1,ROOMS_WIDTH[a]-1):
