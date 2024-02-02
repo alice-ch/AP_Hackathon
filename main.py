@@ -336,7 +336,7 @@ class Piece:
             self.forbidden_cases[y,x]=0
         
         elif self.forbidden_cases[y, x] == 6:
-            if len(WEAPON) == 0:
+            if len(self.WEAPON) == 0:
                 self.xp += 3
                 i = 0
                 while i < len(self.MONEY):
