@@ -26,11 +26,11 @@ ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 DOORS_LOCx = [[15,16,17],[20,21,22],[24,24,24],[35,36,37],[46,47,48],[7,8,9],[10,11,12],[17,18,19],[22,23,24]]
 DOORS_LOCy = [[2,2,2],[2,2,2],[3,4,5],[8,8,8],[2,2,2],[15,15,15],[16,16,16],[15,15,15],[16,16,16]]
 
-CORRIDORS_STARTx = [18,18,7,7,32,32,1]
-CORRIDORS_STARTy = [2,2,8,8,2,2,11]
+CORRIDORS_STARTx = [18,18,7,7,32,32,1,24]
+CORRIDORS_STARTy = [2,2,8,8,2,2,11,6]
 
-CORRIDORS_LENGTHx = [2,1,28,1,1,14,6]
-CORRIDORS_LENGTHy = [1,6,1,7,6,1,1]
+CORRIDORS_LENGTHx = [2,1,28,1,1,14,6,1]
+CORRIDORS_LENGTHy = [1,6,1,7,6,1,1,2]
 
 
 POTION_COLOUR=(173,255,47)      #potion vert 
@@ -40,20 +40,20 @@ WATER_COLOUR=(135,206,235)      #water
 FOOD_COLOUR=(128,0,0)           #food
 MONEY_COLOUR=(255,215,0)        #tresor jaune
 
-MONEYx = [14,30,30,31,31]
-MONEYy = [14,21,22,21,22]
+MONEYy = [14,30,30,31,31]
+MONEYx = [14,21,22,21,22]
 
-POTIONx=[28,52]
-POTIONy=[17,6]
+POTIONy=[28,52]
+POTIONx=[17,6]
 
-WEAPONx=[12]
 WEAPONy=[12]
+WEAPONx=[12]
 
-FOODx = [10,24,39,51,15,29]
-FOODy = [2,1,7,4,15,15]
+FOODy = [10,24,39,51,15,29]
+FOODx = [2,1,7,4,15,15]
 
-WATERx = [6,26,42,50,16,26]
-WATERy = [2,2,6,6,13,19]
+WATERy = [6,26,42,50,16,26]
+WATERx = [2,2,6,6,13,19]
 
 
 class Game():
@@ -84,7 +84,7 @@ class Game():
         for a in range(len(ROOMS_HEIGHT)):
             rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDTH[a], TILES_SIZE*ROOMS_HEIGHT[a])
             pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
-        #affichage des fonds de salles
+        # affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
             rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]-1))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
@@ -94,6 +94,7 @@ class Game():
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)       
             rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDTH[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+        # affichage des murs
     
     def display_corridors(self):
         for a in range(len(CORRIDORS_STARTx)):
@@ -156,7 +157,7 @@ class Game():
             y = WATERy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect)
-            self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
+            self.forbidden_cases[WATERy[i]][WATERx[i]]= 3
 
             #food
         for i in range (len(FOODx)):
@@ -176,7 +177,7 @@ class Game():
             y = MONEYy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
-            self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
+            self.forbidden_cases[MONEYy[i]][MONEYx[i]]= 5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
@@ -223,6 +224,7 @@ class Piece:
         elif self.deplacement == 4: # bas
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
+
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
