@@ -229,8 +229,14 @@ class Piece:
     def display(self, screen):
         x = self.position[0] * TILES_SIZE
         y = self.position[1] * TILES_SIZE
-        rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-        pygame.draw.rect(screen,self.colour,rect)
+        rect1 = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+        rect2 = pygame.Rect(y + 4, x + 4, 3, 3)
+        rect3 = pygame.Rect(y + 11, x + 4, 3, 3)
+        rect4 = pygame.Rect(y + 4, x + 11, 10, 3)
+        pygame.draw.rect(screen,self.colour,rect1)
+        pygame.draw.rect(screen,(0, 0, 139),rect2)
+        pygame.draw.rect(screen,(0, 0, 139),rect3)
+        pygame.draw.rect(screen,(0, 0, 139),rect4)
 
     def new_position(self, screen, forbidden_cases):
         former_position = np.copy(self.position)
