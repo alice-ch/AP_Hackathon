@@ -58,7 +58,7 @@ class Game():
         self.is_running = True
         self.screen = screen
         self.piece = Piece()
-        self.forbidden_cases = np.full((NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), 0)
+        self.forbidden_cases = np.full((NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), -1)
     
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -71,14 +71,18 @@ class Game():
         for i in range(3):
             rect = pygame.Rect(0, (i+k)* TILES_SIZE, l*TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen, (255,255,255), rect)
+    
+    def update_forbidden_cases(self):
+        for a in range(len(ROOMS_HEIGHT)):
+            for i in range(1,ROOMS_HEIGHT[a]-1):
+                for j in range(1, ROOMS_WIDGHT[a]-1):
+                    self.forbidden_cases[i,j] = 0
 
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
-            for j in range(ROOMS_HEIGHT[a]):
-                for i in range(ROOMS_WIDGHT[a]):
-                    rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
-                    self.forbidden_cases[ROOMS_LOCy[a]+ j,ROOMS_LOCx[a]+ i] = -1
+            rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE*ROOMS_HEIGHT[a])
+            pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
+        #affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
             for j in range(ROOMS_HEIGHT[a]):
                 rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
@@ -163,7 +167,7 @@ class Piece:
         self.shape = np.array([1])
         self.position = [
             2,
-            NUMBER_OF_TILES_WIDGHT // 2 - 1,
+            NUMBER_OF_TILES_WIDGHT // 2 - 3,
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
