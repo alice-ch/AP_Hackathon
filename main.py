@@ -3,11 +3,11 @@ import random
 import numpy as np
 
 SCREEN_COLOR = (50, 50, 50)
-SCREEN_WIDTH = 1320
-SCREEN_HEIGHT = 660
+SCREEN_WIDTH = 1080
+SCREEN_HEIGHT = 540
 CLOCK_FREQUENCY = 5
 
-TILES_SIZE = 22
+TILES_SIZE = 18
 TILES_COLOR = (15, 15, 15)
 
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
@@ -174,29 +174,6 @@ class Piece:
         
     def has_collided(self, screen):
         return False
-
-
-def Object:
-    POTION_COLOUR=(173,255,47),      #potion vert 
-    MONSTER_COLOUR=(220,20,60),       #monstre rouge
-    WEAPON_COLOUR=(238,130,238),     #armes violet
-    WATER_COLOUR=(240,248,250),     #water
-    FOOD_COLOUR=(128,0,0),         #food
-    MONEY_COLOUR=(255,215,0)     #tresor jaune
-                                        
-        self.shape = np.array([1])
-
-
-    def display_object(self):
-        #potion vert
-        
-        #armes violet
-    
-        #water
-    
-        #food
-    
-        #tresor jaune
 
 
 def main():
