@@ -1,12 +1,12 @@
 On va décrire ici notre plan d'action.
 
 base :
-Affichage d'un fond
-Affichage de salles (que des rectangles pour commencer)
+Affichage d'un fond ✅
+Affichage de salles (que des rectangles pour commencer)✅
 Affichage de couloirs
-Affichage du pion
-Déplacement du pion
-Stoppage du pion quand mur
+Affichage du pion ✅
+Déplacement du pion ✅
+Stoppage du pion quand mur 
 Affichage de passage secret
 
 
