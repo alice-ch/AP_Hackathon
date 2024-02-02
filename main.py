@@ -17,6 +17,7 @@ class Game():
     def __init__(self, screen):
         self.is_running = True
         self.screen = screen
+        self.piece = Piece()
     
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -31,6 +32,7 @@ class Game():
     
     def display(self):
         self.display_checkerboard()
+        self.piece.display(self.screen)
 
 
 class Piece:
@@ -65,7 +67,7 @@ class Piece:
             self.shape = former_position
         
     def has_collided(self, screen):
-        return
+        return False
 
 
 def main():
@@ -73,9 +75,10 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     game = Game(screen)
+    game.piece 
 
     while game.is_running:
-        pygame.display.set_caption("Rogue")
+        pygame.display.set_caption("Rogue by GASCO")
         clock.tick(CLOCK_FREQUENCY)
 
         for event in pygame.event.get():
@@ -88,8 +91,10 @@ def main():
                 if event.key == pygame.K_RIGHT:
                     game.piece.horizontal_direction += 1
                 if event.key == pygame.K_DOWN:
-                    game.piece.down(game.placed_pieces)
-                    
+                    game.piece.vertical_direction += -1
+                if event.key == pygame.K_UP:
+                    game.piece.vertical_direction += 1
+
         game.display()
         pygame.display.update()
 
