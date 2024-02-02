@@ -87,13 +87,13 @@ class Game():
             pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
         #affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*ROOMS_HEIGHT[a])
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]-1))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*ROOMS_HEIGHT[a])
+            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a]-1)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)       
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
     
     def display_corridors(self):
@@ -176,7 +176,7 @@ class Piece:
         self.shape = np.array([1])
         self.position = [
             2,
-            NUMBER_OF_TILES_WIDGHT // 2 - 3,
+            NUMBER_OF_TILES_WIDGHT // 2 - 6,
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
