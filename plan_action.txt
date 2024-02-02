@@ -21,3 +21,4 @@ clignoter quand on se prend un méchant
 changer les salles 
 on cache les salles pas encore visitées
 faire des salles pas que rectangles
+pioche pour creuser un couloir

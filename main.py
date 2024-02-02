@@ -15,8 +15,9 @@ NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_HEIGHT = []
 ROOMS_WIDGHT = []
-ROOMS_POSITION = []
-ROOMS = []
+ROOMS_LOCx = []
+ROOMS_COLOR = (230, 230, 250)
+
 
 CORRIDORS = []
 
@@ -39,11 +40,16 @@ class Game():
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
     
     def display_rooms(self):
-        for a in ROOMS:
-            self.forbidden_cases 
+        for a in len(ROOMS_HEIGHT):
+            for j in range(ROOMS_HEIGHT[a]):
+                for i in range(ROOMS_LENGHT[a]):
+                    rect = pygame.Rect(j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                    pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
+                    self.forbidden_cases[i][j] = 0
 
     def display(self):
         self.display_checkerboard()
+        self.display_rooms()
         self.piece.display(self.screen)
 
     def update(self):
