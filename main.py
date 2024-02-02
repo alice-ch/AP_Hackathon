@@ -69,6 +69,14 @@ class Game():
                     rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
+    
+    def display_corridors(self): # vert clair
+        for a in range(len(CORRIDORS_STARTx)):
+            for j in range(CORRIDORS_LENGTHy[a]):
+                for i in range(CORRIDORS_LENGTHx[a]):
+                    rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                    pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
+                    self.forbidden_cases[i][j] = 0
 
     def display(self):
         self.display_checkerboard()
