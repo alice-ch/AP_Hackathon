@@ -154,7 +154,7 @@ class Piece:
     def __init__(self):
         self.shape = np.array([1])
         self.position = [
-            0,
+            2,
             NUMBER_OF_TILES_WIDGHT // 2 - 1,
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
@@ -194,14 +194,19 @@ class Piece:
             self.position = former_position
         if forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 2 : # c'est une arme
-            self.vie += 1               # à changer
+            self.vie += 1
+            forbidden_cases[x][y]=0               # à changer
         if forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 4 : # c'est à manger
             self.manger += 5
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
+            forbidden_cases[x][y]=0
 
 
 def main():
