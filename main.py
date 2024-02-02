@@ -40,16 +40,6 @@ WATER_COLOUR = (135,206,235)      #water
 FOOD_COLOUR = (128,0,0)           #food
 MONEY_COLOUR = (255,215,0)        #tresor jaune
 
-MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
-
-POTION=[(28,17),(52,6)]
-
-WEAPON=[(12,12)]
-
-FOOD=[(10,2),(24,1),(39,4),(51,5),(29,15)]
-
-WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
-
 
 class Game():
     def __init__(self, screen):
@@ -219,7 +209,7 @@ class Piece:
         self.MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
         self.POTION=[(28,17),(52,6)]
         self.WEAPON=[(12,12)]
-        self.FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
+        self.FOOD=[(10,2),(24,1),(39,5),(51,5),(29,15)]
         self.WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
         self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
         for a in range(len(ROOMS_HEIGHT)):
