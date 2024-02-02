@@ -31,6 +31,12 @@ CORRIDORS_LENGTHy = [0,5,0,6,5,0,0]
 MONEYx = [14,30,30,31,31]
 MONEYy = [14,21,22,21,22]
 
+POTIONx=[]
+POTIONy=[]
+
+WEAPONx=[]
+WEAPONy=[]
+
 FOODx = [10,24,39,51,15,29]
 FOODy = [2,1,7,4,15,15]
 
@@ -114,7 +120,28 @@ class Piece:
         return False
 
 
+def Object:
+    def __init__(self):
+        self.colors=([(173,255,47),      #potion vert 
+                      (220,20,60),       #monstre rouge
+                      (238,130,238),     #armes violet
+                      (240,248,250),     #water
+                      (128,0,0),         #food
+                      (255,215,0)])      #tresor jaune
+                                        
+        self.shape = np.array([1])
 
+
+    def display_object(self):
+        #potion vert
+    
+        #armes violet
+    
+        #water
+    
+        #food
+    
+        #tresor jaune
 
 
 def main():
