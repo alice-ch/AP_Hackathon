@@ -91,31 +91,40 @@ class Game():
             x = POTIONx[i] * TILES_SIZE
             y = POTIONy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-            pygame.draw.rect(self.screen,POTION_COLOUR,rect)   
+            pygame.draw.rect(self.screen,POTION_COLOUR,rect)
+            self.forbidden_cases[POTIONx[i]][POTIONy[i]]= 1
+
             #armes violet
         for i in range (len(WEAPONx)):
             x = WEAPONx[i] * TILES_SIZE
             y = WEAPONy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect)
+            self.forbidden_cases[WEAPONx[i]][WEAPONy[i]]= 2
+
             #water
         for i in range (len(WATERx)):
             x = WATERx[i] * TILES_SIZE
             y = WATERy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect)
+            self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
+
             #food
         for i in range (len(FOODx)):
             x = FOODx[i] * TILES_SIZE
             y = FOODy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+            self.forbidden_cases[FOODx[i]][FOODy[i]]= 4
+
             #tresor jaune
         for i in range (len(MONEYx)):
             x = MONEYx[i] * TILES_SIZE
             y = MONEYy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+            self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
 
 
     def update(self):
@@ -155,11 +164,10 @@ class Piece:
             self.deplacement =0
         
 
-
         if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
             self.position = former_position
         
-    def has_collided(self, screen):
+    def has_collided(self, screen):     #regarde contre quoi il se cogne.
         return False
 
 
