@@ -1,4 +1,4 @@
-import pygame
+import cours_pygame
 import random
 import numpy as np
 
@@ -12,3 +12,5 @@ TILES_COLOR = (50, 50, 50)
 
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
+
+
