@@ -203,17 +203,32 @@ class Game():
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-10*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
+        x= SCREEN_WIDTH-11*TILES_SIZE 
+        y=SCREEN_HEIGHT+TILES_SIZE
 
     
     def display_eau(self):
         rect = pygame.Rect(SCREEN_WIDTH-40*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.eau *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,WATER_COLOUR,rect)
-
+        x= SCREEN_WIDTH-41*TILES_SIZE 
+        y=SCREEN_HEIGHT+TILES_SIZE
+        rect1 = pygame.Rect(x + 9,y + 4, 7, 7)
+        rect2 = pygame.Rect(x + 7, y + 7, 5, 5)
+        rect3 = pygame.Rect(x + 10, y + 5, 2, 2)
+        rect01 = pygame.Rect(x + 4, y + 9, 8, 8)
+        rect02 = pygame.Rect(x + 7, y + 7, 6, 6)
+        rect03 = pygame.Rect(x + 9, y + 8, 3, 3)
+        pygame.draw.rect(self.screen,(0, 0, 139),rect01)
+        pygame.draw.rect(self.screen,(0, 0, 139),rect02)
+        pygame.draw.rect(self.screen,(0, 0, 139),rect03)
+        pygame.draw.rect(self.screen,WATER_COLOUR,rect1)
+        pygame.draw.rect(self.screen,WATER_COLOUR,rect2)
+        pygame.draw.rect(self.screen,WATER_COLOUR,rect3)
 
     def display_money(self):
         rect = pygame.Rect(SCREEN_WIDTH-50*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.money *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
-        x= SCREEN_WIDTH-15*TILES_SIZE 
+        x= SCREEN_WIDTH-51*TILES_SIZE 
         y=SCREEN_HEIGHT+TILES_SIZE
         rect1 = pygame.Rect(x + 4, y + 9, 6, 4)
         rect2 = pygame.Rect(x + 9, y + 4, 6, 4)
@@ -232,11 +247,30 @@ class Game():
     def display_food(self):
         rect = pygame.Rect(SCREEN_WIDTH-30*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.faim *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+        x= SCREEN_WIDTH-31*TILES_SIZE 
+        y=SCREEN_HEIGHT+TILES_SIZE
+        rect1 = pygame.Rect(x + 2, y + 8, 8, 8)
+        rect2 = pygame.Rect(x + 9, y + 6, 5, 2)
+        rect3 = pygame.Rect(x + 10, y + 4, 2, 3)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect1)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect2)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
+    
 
     
     def display_xp(self):
         rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,POTION_COLOUR,rect)
+        x= SCREEN_WIDTH-21*TILES_SIZE 
+        y=SCREEN_HEIGHT+TILES_SIZE
+        rect01 = pygame.Rect(x + 2, y + 6, 10, 10)
+        rect02 = pygame.Rect(x + 4, y + 1, 5, 8)
+        rect1 = pygame.Rect(x + 3, y + 7, 8, 8)
+        rect2 = pygame.Rect(x + 5, y + 2, 3, 6)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
+        pygame.draw.rect(self.screen,POTION_COLOUR,rect1)
+        pygame.draw.rect(self.screen,POTION_COLOUR,rect2)
 
 
     def check_game_over(self):
