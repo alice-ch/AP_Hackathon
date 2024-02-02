@@ -161,6 +161,10 @@ class Piece:
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
+        self.xp = 10
+        self.money = 0
+        self.faim=10
+        self.soif=10
         self.colour = (0,0,139) # il est bleu !!!
 
     def display(self, screen):
@@ -190,16 +194,16 @@ class Piece:
         y = self.position[1]
         if Game.forbidden_cases[x][y]== -1 : # c'est un mur
             self.position = former_position
-        if Game.forbidden_cases[][]== 1 : # c'est une potion
-            
-        if Game.forbidden_cases[][]== 2 : # c'est une arme
-            
-        if Game.forbidden_cases[][]== 3 : # c'est de l'eau
-            
-        if Game.forbidden_cases[][]== 4 : # c'est à manger
-            
-        if Game.forbidden_cases[][]== 5 : # c'est un trésor
-            
+        if Game.forbidden_cases[x][y]== 1 : # c'est une potion
+            self.vie+=1
+        if Game.forbidden_cases[x][y]== 2 : # c'est une arme
+            self.vie += 1               # à changer
+        if Game.forbidden_cases[x][y]== 3 : # c'est de l'eau
+            self.eau+=2
+        if Game.forbidden_cases[x][y]== 4 : # c'est à manger
+            self.manger += 5
+        if Game.forbidden_cases[x][y]== 5 : # c'est un trésor
+            self.money += 1
 
 
 def main():
