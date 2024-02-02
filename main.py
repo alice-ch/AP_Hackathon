@@ -14,6 +14,7 @@ NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_COLOR = (230, 230, 250)
+WALLS_COLOR = (150,131,236)
 ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
 ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
 ROOMS_LOCx = [0,21,8,11,18,23,36,47]
@@ -69,6 +70,18 @@ class Game():
                     rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
+        for a in range(len(ROOMS_HEIGHT)):
+            for j in range(ROOMS_HEIGHT[a]):
+                rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+                rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT)*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+            for i in range(ROOMS_WIDGHT[a]):
+                rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+                rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+
 
     def display(self):
         self.display_checkerboard()
@@ -126,7 +139,7 @@ def Object:
     WEAPON_COLOUR=(238,130,238),     #armes violet
     WATER_COLOUR=(240,248,250),     #water
     FOOD_COLOUR=(128,0,0),         #food
-    MONEY_COLOUR=(255,215,0)])      #tresor jaune
+    MONEY_COLOUR=(255,215,0)     #tresor jaune
                                         
         self.shape = np.array([1])
 
