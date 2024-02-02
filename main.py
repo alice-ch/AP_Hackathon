@@ -76,6 +76,8 @@ class Piece:
             self.position = [former_position[0], former_position[1] +1]
         elif self.deplacement == 4:
             self.position = [former_position[0], former_position[1] -1]
+        else:
+            self.position = former_position
 
 
         if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
