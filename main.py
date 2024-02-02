@@ -11,15 +11,15 @@ TILES_SIZE = 18
 TILES_COLOR = (15, 15, 15)
 
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
-NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
+NUMBER_OF_TILES_WIDTH = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_COLOR = (230, 230, 250)
 WALLS_COLOR = (150,131,236)
 CORRIDORS_COLOR = (176,242,182) # vert clair
 DOORS_COLOR = (255,223,186) # orange
 
-ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
-ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
+ROOMS_HEIGHT = [5,5,4,7,4,12,7,9]
+ROOMS_WIDTH = [17,7,4,8,6,11,9,10]
 ROOMS_LOCx = [0,21,8,11,18,23,36,47]
 ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 
@@ -61,8 +61,12 @@ class Game():
         self.is_running = True
         self.screen = screen
         self.piece = Piece()
-        self.forbidden_cases = np.full((NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), -1)
-    
+        self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
+        for a in range(len(ROOMS_HEIGHT)):
+            for i in range(1,ROOMS_WIDTH[a]-1):
+                for j in range(1, ROOMS_HEIGHT[a]-1):
+                    self.forbidden_cases[i+ROOMS_LOCx[a],j+ROOMS_LOCy[a]] = 0
+
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
         k, l = int(SCREEN_HEIGHT / TILES_SIZE), int(SCREEN_WIDTH / TILES_SIZE)
@@ -75,25 +79,20 @@ class Game():
             rect = pygame.Rect(0, (i+k)* TILES_SIZE, l*TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen, (255,255,255), rect)
     
-    def update_forbidden_cases(self):
-        for a in range(len(ROOMS_HEIGHT)):
-            for i in range(1,ROOMS_HEIGHT[a]-1):
-                for j in range(1, ROOMS_WIDGHT[a]-1):
-                    self.forbidden_cases[j+ROOMS_LOCy[a],i+ROOMS_LOCx[a]] = 0
 
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
-            rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE*ROOMS_HEIGHT[a])
+            rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDTH[a], TILES_SIZE*ROOMS_HEIGHT[a])
             pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
         #affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
             rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]-1))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDTH[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a]-1)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]))
+            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDTH[a]-1)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)       
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDTH[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
     
     def display_corridors(self):
@@ -102,14 +101,14 @@ class Game():
                 for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
-                    self.forbidden_cases[i,j] = 0
+                    self.forbidden_cases[CORRIDORS_STARTx[a]+i,CORRIDORS_STARTy[a]+j] = 0
     
     def display_doors(self):
         for a in range(len(DOORS_LOCx)):
             for i in range(3) :
                 rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, DOORS_COLOR, rect)
-                self.forbidden_cases[DOORS_LOCy[a][i],DOORS_LOCx[a][i]] = 0
+                self.forbidden_cases[DOORS_LOCx[a][i],DOORS_LOCy[a][i]] = 0
 
 
     def display(self):
@@ -129,7 +128,7 @@ class Game():
             y = POTIONy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect)
-            self.forbidden_cases[POTIONx[i]][POTIONy[i]]= 1
+            self.forbidden_cases[POTIONy[i],POTIONx[i]]= 1
 
             #armes violet
         for i in range (len(WEAPONx)):
@@ -137,7 +136,7 @@ class Game():
             y = WEAPONy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect)
-            self.forbidden_cases[WEAPONx[i]][WEAPONy[i]]= 2
+            self.forbidden_cases[WEAPONy[i]][WEAPONx[i]]= 2
 
             #water
         for i in range (len(WATERx)):
@@ -145,7 +144,7 @@ class Game():
             y = WATERy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect)
-            self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
+            self.forbidden_cases[WATERy[i]][WATERx[i]]= 3
 
             #food
         for i in range (len(FOODx)):
@@ -153,7 +152,7 @@ class Game():
             y = FOODy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
-            self.forbidden_cases[FOODx[i]][FOODy[i]]= 4
+            self.forbidden_cases[FOODy[i]][FOODx[i]]= 4
 
             #tresor jaune
         for i in range (len(MONEYx)):
@@ -161,7 +160,7 @@ class Game():
             y = MONEYy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
-            self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
+            self.forbidden_cases[MONEYy[i]][MONEYx[i]]= 5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
@@ -177,7 +176,7 @@ class Piece:
         self.shape = np.array([1])
         self.position = [
             2,
-            NUMBER_OF_TILES_WIDGHT // 2 - 6,
+            NUMBER_OF_TILES_WIDTH // 2 - 6,
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
