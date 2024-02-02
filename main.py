@@ -13,10 +13,10 @@ TILES_COLOR = (15, 15, 15)
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDTH = SCREEN_WIDTH // TILES_SIZE
 
-ROOMS_COLOR = (230, 230, 250)
-WALLS_COLOR = (150,131,236)
-CORRIDORS_COLOR = (176,242,182) # vert clair
-DOORS_COLOR = (255,223,186) # orange
+ROOMS_COLOR = (200, 173, 127) # beige
+WALLS_COLOR = (88,41,0) # marron
+CORRIDORS_COLOR = (85,107,47) # vert foncé
+DOORS_COLOR = (85,107,47)
 
 ROOMS_HEIGHT = [5,5,4,7,4,12,7,9]
 ROOMS_WIDTH = [17,7,4,8,6,11,9,10]
@@ -33,12 +33,12 @@ CORRIDORS_LENGTHx = [2,1,28,1,1,14,6,1]
 CORRIDORS_LENGTHy = [1,6,1,7,6,1,1,2]
 
 
-POTION_COLOUR=(173,255,47)      #potion vert 
-MONSTER_COLOUR=(220,20,60)      #monstre rouge
-WEAPON_COLOUR=(238,130,238)     #armes violet
-WATER_COLOUR=(135,206,235)      #water
-FOOD_COLOUR=(128,0,0)           #food
-MONEY_COLOUR=(255,215,0)        #tresor jaune
+POTION_COLOUR = (173,255,47)      #potion vert 
+MONSTER_COLOUR = (220,20,60)      #monstre rouge
+WEAPON_COLOUR = (238,130,238)     #armes violet
+WATER_COLOUR = (135,206,235)      #water
+FOOD_COLOUR = (128,0,0)           #food
+MONEY_COLOUR = (255,215,0)        #tresor jaune
 
 MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
 
@@ -220,7 +220,7 @@ class Piece:
         self.money = 0
         self.faim=10
         self.eau=10
-        self.colour = (0,0,139) # il est bleu !!!
+        self.colour = (255,255,0) # il est jaune !!!
 
     def display(self, screen):
         x = self.position[0] * TILES_SIZE
