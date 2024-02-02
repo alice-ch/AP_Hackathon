@@ -1,5 +1,5 @@
 
-import pygame
+import cours_pygame
 import random
 import numpy as np
 import pandas as pd
@@ -52,12 +52,12 @@ welcome_text = [
 
 # Init pause image
 IMAGE_SCALE = 15
-pause_image = pygame.image.load("pause.png")
+pause_image = cours_pygame.image.load("pause.png")
 new_size = (
     pause_image.get_width() // IMAGE_SCALE,
     pause_image.get_height() // IMAGE_SCALE,
 )
-pause_image = pygame.transform.scale(pause_image, new_size)
+pause_image = cours_pygame.transform.scale(pause_image, new_size)
 rect_image = pause_image.get_rect()
 rect_image.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
@@ -73,22 +73,22 @@ class Game:
         self.score = 0
 
     def welcome(self):
-        self.screen = pygame.display.set_mode((900, 700))
-        font = pygame.font.Font(None, 24)
+        self.screen = cours_pygame.display.set_mode((900, 700))
+        font = cours_pygame.font.Font(None, 24)
         self.screen.fill(PIECES_COLOURS[0])
         y = 20
         for line in welcome_text:
             text = font.render(line, True, (0, 0, 0))
             self.screen.blit(text, (50, y))
             y += 30
-        pygame.display.flip()
+        cours_pygame.display.flip()
         a = True
         while a:
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+            for event in cours_pygame.event.get():
+                if event.type == cours_pygame.KEYDOWN:
+                    if event.key == cours_pygame.K_SPACE:
                         a = 0
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.screen = cours_pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -96,11 +96,11 @@ class Game:
         for i in range(k):
             for j in range(l):
                 if (i + j) % 2 == 1:
-                    rect = pygame.Rect(
+                    rect = cours_pygame.Rect(
                         j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE
                     )
-                    pygame.draw.rect(self.screen, TILES_COLOR, rect)
-        pygame.draw.line(
+                    cours_pygame.draw.rect(self.screen, TILES_COLOR, rect)
+        cours_pygame.draw.line(
             self.screen,
             LINE_COLOR,
             [0, LINE_POSITION],
@@ -129,8 +129,8 @@ class Game:
             for j in range(len(self.placed_pieces[0])):
                 if self.placed_pieces[i, j] != -1:
                     x, y = i * TILES_SIZE, j * TILES_SIZE
-                    rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(
+                    rect = cours_pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+                    cours_pygame.draw.rect(
                         self.screen, PIECES_COLOURS[int(self.placed_pieces[i, j])], rect
                     )
 
@@ -152,11 +152,11 @@ class Game:
         df = pd.concat([df, new_line], ignore_index=True)
         df.to_csv("score.csv", index=False)
 
-        self.screen = pygame.display.set_mode((400, 300))
+        self.screen = cours_pygame.display.set_mode((400, 300))
         # best scores ever
         self.screen.fill(SCREEN_COLOR)
         y = 50
-        font = pygame.font.Font(None, 36)
+        font = cours_pygame.font.Font(None, 36)
         for index, row in df.nlargest(3, "score").iterrows():
             text = f"{row['username']}: {row['score']}"
             score_text = font.render(text, True, (0, 0, 0))
@@ -169,12 +169,12 @@ class Game:
         score_text = font.render(text, True, (0, 0, 0))
         self.screen.blit(score_text, (50, y))
 
-        pygame.display.set_caption("Highscores")
-        pygame.display.flip()
+        cours_pygame.display.set_caption("Highscores")
+        cours_pygame.display.flip()
         a = 1
         while a:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+            for event in cours_pygame.event.get():
+                if event.type == cours_pygame.QUIT:
                     a = 0
 
     def check_full_line(self):
@@ -189,13 +189,13 @@ class Game:
         is_paused = True
         self.screen.fill(random.choice(PIECES_COLOURS))
         self.screen.blit(pause_image, rect_image)
-        pygame.display.update()
+        cours_pygame.display.update()
         while is_paused:
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+            for event in cours_pygame.event.get():
+                if event.type == cours_pygame.KEYDOWN:
+                    if event.key == cours_pygame.K_SPACE:
                         is_paused = False
-                if event.type == pygame.QUIT:
+                if event.type == cours_pygame.QUIT:
                     is_paused = False
                     self.is_running = False
 
@@ -300,56 +300,56 @@ class Piece:
                 if self.shape[i, j] == 1:
                     x = (self.position[0] + i) * TILES_SIZE
                     y = (self.position[1] + j) * TILES_SIZE
-                    rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(screen, self.colour, rect)
+                    rect = cours_pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+                    cours_pygame.draw.rect(screen, self.colour, rect)
 
 
 def main():
-    pygame.init()
-    pygame.mixer.init()
+    cours_pygame.init()
+    cours_pygame.mixer.init()
     chemin_fichier_audio = "game-tetris-original.mp3"
-    pygame.mixer.music.load(chemin_fichier_audio)
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
+    cours_pygame.mixer.music.load(chemin_fichier_audio)
+    screen = cours_pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = cours_pygame.time.Clock()
 
     game = Game(screen)
-    pygame.mixer.music.play()
+    cours_pygame.mixer.music.play()
 
     # Welcome
     game.welcome()
 
-    pygame.mixer.music.set_endevent(
-        pygame.USEREVENT
+    cours_pygame.mixer.music.set_endevent(
+        cours_pygame.USEREVENT
     )  # define event for end of the music
 
     while game.is_running:
-        pygame.display.set_caption("Tetris" + f" Score : {game.score}")
+        cours_pygame.display.set_caption("Tetris" + f" Score : {game.score}")
         clock.tick(CLOCK_FREQUENCY * (game.score / 100 + 1))
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
+        for event in cours_pygame.event.get():
+            if event.type == cours_pygame.KEYDOWN:
                 # Control
-                if event.key == pygame.K_LEFT:
+                if event.key == cours_pygame.K_LEFT:
                     game.piece.horizontal_direction += -1
-                if event.key == pygame.K_RIGHT:
+                if event.key == cours_pygame.K_RIGHT:
                     game.piece.horizontal_direction += 1
-                if event.key == pygame.K_q:
+                if event.key == cours_pygame.K_q:
                     game.piece.rotate_trigo(game.placed_pieces)
-                if event.key == pygame.K_d:
+                if event.key == cours_pygame.K_d:
                     game.piece.rotate_clockwise(game.placed_pieces)
-                if event.key == pygame.K_DOWN:
+                if event.key == cours_pygame.K_DOWN:
                     game.piece.down(game.placed_pieces)
-                if event.key == pygame.K_SPACE:
+                if event.key == cours_pygame.K_SPACE:
                     game.pause()
-            if event.type == pygame.QUIT:
+            if event.type == cours_pygame.QUIT:
                 game.is_running = False
-            if event.type == pygame.USEREVENT:
+            if event.type == cours_pygame.USEREVENT:
                 # if end of the music, continue
-                pygame.mixer.music.play()
+                cours_pygame.mixer.music.play()
         game.update()
         game.display()
         game.check_game_over()
-        pygame.display.update()
+        cours_pygame.display.update()
 
 
 main()
