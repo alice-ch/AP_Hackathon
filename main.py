@@ -75,17 +75,17 @@ class Game():
                 for i in range(ROOMS_WIDGHT[a]):
                     rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
-                    self.forbidden_cases[i][j] = 0
+                    self.forbidden_cases[ROOMS_LOCy[a]+ j,ROOMS_LOCx[a]+ i] = -1
         for a in range(len(ROOMS_HEIGHT)):
             for j in range(ROOMS_HEIGHT[a]):
                 rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-                rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT)*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a])*TILES_SIZE,(ROOMS_LOCy[a]+j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
             for i in range(ROOMS_WIDGHT[a]):
                 rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-                rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
 
                   
