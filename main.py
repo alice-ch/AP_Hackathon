@@ -109,6 +109,10 @@ class Game():
         self.display_doors()
         self.display_object()
         self.display_life()
+        self.display_eau()
+        self.display_food()
+        self.display_money()
+        self.display_xp()
         self.piece.display(self.screen)
     
     def display_object(self):
@@ -194,8 +198,24 @@ class Game():
             self.piece.forbidden_cases[a][b]= 5
 
     def display_life(self):
-        rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
+        rect = pygame.Rect(SCREEN_WIDTH-10*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
+    
+    def display_eau(self):
+        rect = pygame.Rect(SCREEN_WIDTH-40*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.eau *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,WATER_COLOUR,rect)
+
+    def display_money(self):
+        rect = pygame.Rect(SCREEN_WIDTH-50*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.money *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+
+    def display_food(self):
+        rect = pygame.Rect(SCREEN_WIDTH-30*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.faim *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+    
+    def display_xp(self):
+        rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,POTION_COLOUR,rect)
 
 
     def update(self):
@@ -211,10 +231,10 @@ class Piece:
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
-        self.xp = 10
-        self.money = 0
-        self.faim=10
-        self.eau=10
+        self.xp = 5
+        self.money = 2
+        self.faim=2
+        self.eau=2
         self.colour = (255,255,0) # il est bleu !!!
         self.MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
         self.POTION=[(28,17),(52,6)]
@@ -281,7 +301,7 @@ class Piece:
             self.forbidden_cases[y,x]=0 
 
         elif self.forbidden_cases[y,x]== 3 : # c'est de l'eau
-            self.eau+=2
+            self.eau+=1
             i = 0
             while i < len(self.WATER):
                 a,b = self.WATER[i]
@@ -292,7 +312,7 @@ class Piece:
             self.forbidden_cases[y,x]=0
 
         elif self.forbidden_cases[y,x]== 4 : # c'est à manger
-            self.faim += 5
+            self.faim += 1
             self.forbidden_cases[y,x]=0
             i = 0
             while i < len(self.FOOD):
