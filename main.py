@@ -4,7 +4,7 @@ import numpy as np
 
 SCREEN_COLOR = (50, 50, 50)
 SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 800
+SCREEN_HEIGHT = 600
 CLOCK_FREQUENCY = 5
 
 TILES_SIZE = 22
@@ -15,7 +15,7 @@ NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_COLOR = (230, 230, 250)
 ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
-ROOMS_WEIGHT = [17,7,4,8,6,11,9,10]
+ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
 ROOMS_LOCx = [0,21,8,11,18,23,36,47]
 ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 
@@ -57,10 +57,10 @@ class Game():
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
     
     def display_rooms(self):
-        for a in len(ROOMS_HEIGHT):
+        for a in range(len(ROOMS_HEIGHT)):
             for j in range(ROOMS_HEIGHT[a]):
-                for i in range(ROOMS_LENGHT[a]):
-                    rect = pygame.Rect(j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                for i in range(ROOMS_WIDGHT[a]):
+                    rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
 
@@ -114,24 +114,7 @@ class Piece:
         return False
 
 
-def Object:
-    def __init__(self):
-        self.colors=([(173,255,47),      #potion vert 
-                      (220,20,60),       # monstre rouge
-                      (238,130,238),     # armes violet
-                      (,,),                #water
-                      (,,),                #food
-                      (255,215,0)])      # tresor jaune
-                                        
-                                        
-        self.shape = np.array([1])
-        self.position = [
-            0,
-            NUMBER_OF_TILES_WIDGHT // 2 - 1,
-        ]  # middle pour l'instant, à modifier
-        self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
-        self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
-        self.colour = (135,206,235)
+
 
 
 def main():

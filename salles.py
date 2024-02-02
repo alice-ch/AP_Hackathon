@@ -37,3 +37,23 @@ FOODy = [2,1,7,4,15,15]
 
 WATERx = [6,26,42,50,16,26]
 WATERy = [2,2,6,6,13,19]
+
+
+def Object:
+    def __init__(self):
+        self.colors=([(173,255,47),      #potion vert 
+                      (220,20,60),       # monstre rouge
+                      (238,130,238),     # armes violet
+                      (,,),                #water
+                      (,,),                #food
+                      (255,215,0)])      # tresor jaune
+                                        
+                                        
+        self.shape = np.array([1])
+        self.position = [
+            0,
+            NUMBER_OF_TILES_WIDGHT // 2 - 1,
+        ]  # middle pour l'instant, à modifier
+        self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
+        self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
+        self.colour = (135,206,235)
