@@ -46,7 +46,7 @@ POTION=[(28,17),(52,6)]
 
 WEAPON=[(12,12)]
 
-FOOD=[(10,2),(24,1),(39,4),(51,15),(29,15)]
+FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
 
 WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
 
@@ -152,12 +152,12 @@ class Game():
             a,b=WATER[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(y + 4, x + 9, 7, 7)
-            rect2 = pygame.Rect(y + 7, x + 7, 5, 5)
-            rect3 = pygame.Rect(y + 10, x + 5, 2, 2)
-            rect01 = pygame.Rect(y + 4, x + 9, 8, 8)
-            rect02 = pygame.Rect(y + 7, x + 7, 6, 6)
-            rect03 = pygame.Rect(y + 9, x + 8, 3, 3)
+            rect1 = pygame.Rect(x + 4, y + 9, 7, 7)
+            rect2 = pygame.Rect(x + 7, y + 7, 5, 5)
+            rect3 = pygame.Rect(x + 10, y + 5, 2, 2)
+            rect01 = pygame.Rect(x + 4, y + 9, 8, 8)
+            rect02 = pygame.Rect(x + 7, y + 7, 6, 6)
+            rect03 = pygame.Rect(x + 9, y + 8, 3, 3)
             pygame.draw.rect(self.screen,(0, 0, 139),rect01)
             pygame.draw.rect(self.screen,(0, 0, 139),rect02)
             pygame.draw.rect(self.screen,(0, 0, 139),rect03)
@@ -184,12 +184,12 @@ class Game():
             a,b=MONEY[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(y + 4, x + 9, 6, 4)
-            rect2 = pygame.Rect(y + 9, x + 4, 6, 4)
-            rect3 = pygame.Rect(y + 14, x + 9, 6, 4)
-            rect01 = pygame.Rect(y + 3, x + 8, 8, 6)
-            rect02 = pygame.Rect(y + 8, x + 3, 8, 6)
-            rect03 = pygame.Rect(y + 13, x + 8, 8, 6)
+            rect1 = pygame.Rect(x + 4, y + 9, 6, 4)
+            rect2 = pygame.Rect(x + 9, y + 4, 6, 4)
+            rect3 = pygame.Rect(x + 14, y + 9, 6, 4)
+            rect01 = pygame.Rect(x + 3, y + 8, 8, 6)
+            rect02 = pygame.Rect(x + 8, y + 3, 8, 6)
+            rect03 = pygame.Rect(x + 13, y + 8, 8, 6)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect03)
