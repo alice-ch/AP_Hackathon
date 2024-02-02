@@ -46,7 +46,7 @@ POTION=[(28,17),(52,6)]
 
 WEAPON=[(12,12)]
 
-FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
+FOOD=[(10,2),(24,1),(39,4),(51,15),(29,15)]
 
 WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
 
@@ -152,12 +152,12 @@ class Game():
             a,b=WATER[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(x + 4, y + 9, 7, 7)
-            rect2 = pygame.Rect(x + 7, y + 7, 5, 5)
-            rect3 = pygame.Rect(x + 10, y + 5, 2, 2)
-            rect01 = pygame.Rect(x + 4, y + 9, 8, 8)
-            rect02 = pygame.Rect(x + 7, y + 7, 6, 6)
-            rect03 = pygame.Rect(x + 9, y + 8, 3, 3)
+            rect1 = pygame.Rect(y + 4, x + 9, 7, 7)
+            rect2 = pygame.Rect(y + 7, x + 7, 5, 5)
+            rect3 = pygame.Rect(y + 10, x + 5, 2, 2)
+            rect01 = pygame.Rect(y + 4, x + 9, 8, 8)
+            rect02 = pygame.Rect(y + 7, x + 7, 6, 6)
+            rect03 = pygame.Rect(y + 9, x + 8, 3, 3)
             pygame.draw.rect(self.screen,(0, 0, 139),rect01)
             pygame.draw.rect(self.screen,(0, 0, 139),rect02)
             pygame.draw.rect(self.screen,(0, 0, 139),rect03)
@@ -184,12 +184,12 @@ class Game():
             a,b=MONEY[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(x + 4, y + 9, 6, 4)
-            rect2 = pygame.Rect(x + 9, y + 4, 6, 4)
-            rect3 = pygame.Rect(x + 14, y + 9, 6, 4)
-            rect01 = pygame.Rect(x + 3, y + 8, 8, 6)
-            rect02 = pygame.Rect(x + 8, y + 3, 8, 6)
-            rect03 = pygame.Rect(x + 13, y + 8, 8, 6)
+            rect1 = pygame.Rect(y + 4, x + 9, 6, 4)
+            rect2 = pygame.Rect(y + 9, x + 4, 6, 4)
+            rect3 = pygame.Rect(y + 14, x + 9, 6, 4)
+            rect01 = pygame.Rect(y + 3, x + 8, 8, 6)
+            rect02 = pygame.Rect(y + 8, x + 3, 8, 6)
+            rect03 = pygame.Rect(y + 13, x + 8, 8, 6)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect03)
@@ -229,6 +229,8 @@ class Piece:
         pygame.draw.rect(screen,self.colour,rect)
 
     def new_position(self, screen, forbidden_cases):
+        c=False
+        i=0
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
             self.position = [former_position[0], former_position[1]-1]
@@ -255,6 +257,7 @@ class Piece:
                 a,b = POTION[i]
                 if a==x & b==y :
                     POTION=POTION[:,i] + POTION[i+1,:]
+                    break
             forbidden_cases[x][y]=0
 
         elif forbidden_cases[x][y]== 2 : # c'est une arme
@@ -264,15 +267,18 @@ class Piece:
                 a,b = POTION[i]
                 if a==x & b==y :
                     WEAPON=WEAPON[:,i] + WEAPON[i+1,:]
+                    break
             forbidden_cases[x][y]=0
 
         elif forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
             forbidden_cases[x][y]=0
-            for i in range (len(WATER)) :
+            while i<=len(WATER)& c==False :
                 a,b = WATER[i]
                 if a==x & b==y :
-                    WATER=WATER[:,i-1] +WATER[i+1,:]
+                    WATER=WATER[:,i] +WATER[i+1,:]
+                    c=True
+                i+=1
             forbidden_cases[x][y]=0
 
         elif forbidden_cases[x][y]== 4 : # c'est à manger
@@ -282,6 +288,7 @@ class Piece:
                 a,b = FOOD[i]
                 if a==x & b==y :
                     FOOD=FOOD[:,i] +FOOD[i+1,:]
+                    break
             forbidden_cases[x][y]=0
 
         elif forbidden_cases[x][y]== 5 : # c'est un trésor
@@ -291,6 +298,7 @@ class Piece:
                 a,b = MONEY[i]
                 if a==x & b==y :
                     MONEY=MONEY[:,i] +MONEY[i+1,:]
+                    break
             forbidden_cases[x][y]=0
 
 def main():
