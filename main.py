@@ -58,7 +58,6 @@ class Game():
         for i in range(3):
             rect = pygame.Rect(0, (i+k)* TILES_SIZE, l*TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen, (255,255,255), rect)
-    
 
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
@@ -90,7 +89,6 @@ class Game():
                 rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, DOORS_COLOR, rect)
                 self.piece.forbidden_cases[DOORS_LOCx[a][i],DOORS_LOCy[a][i]] = 0
-
 
     def display(self):
         self.display_checkerboard()
@@ -207,9 +205,12 @@ class Game():
         rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,POTION_COLOUR,rect)
 
-
     def update(self):
         self.piece.new_position(self.screen)
+
+    def check_game_over(self):
+        if self.piece.vie == 0 or self.piece.eau == 0 or self.piece.faim == 0:
+            self.is_running = False
 
 
 class Piece:
@@ -264,8 +265,6 @@ class Piece:
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
         
-
-
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
         if self.forbidden_cases[y][x]== -1 : # c'est un mur
