@@ -170,6 +170,7 @@ class Piece:
         pygame.draw.rect(screen,self.colour,rect)
 
     def new_position(self, screen):
+
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
             self.position = [former_position[0], former_position[1]-1]
@@ -183,13 +184,22 @@ class Piece:
         elif self.deplacement == 4: # bas
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
-        
 
-        if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
+
+        x = self.position[0] # on est en nb de cases et pas en pixels
+        y = self.position[1]
+        if Game.forbidden_cases[x][y]== -1 : # c'est un mur
             self.position = former_position
-        
-    def has_collided(self, screen):     #regarde contre quoi il se cogne.
-        return False
+        if Game.forbidden_cases[][]== 1 : # c'est une potion
+            
+        if Game.forbidden_cases[][]== 2 : # c'est une arme
+            
+        if Game.forbidden_cases[][]== 3 : # c'est de l'eau
+            
+        if Game.forbidden_cases[][]== 4 : # c'est à manger
+            
+        if Game.forbidden_cases[][]== 5 : # c'est un trésor
+            
 
 
 def main():
