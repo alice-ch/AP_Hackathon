@@ -155,8 +155,18 @@ class Game():
         for i in range (len(WATERx)):
             x = WATERx[i] * TILES_SIZE
             y = WATERy[i] * TILES_SIZE
-            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-            pygame.draw.rect(self.screen,WATER_COLOUR,rect)
+            rect1 = pygame.Rect(y + 4, x + 9, 7, 7)
+            rect2 = pygame.Rect(y + 7, x + 7, 5, 5)
+            rect3 = pygame.Rect(y + 10, x + 5, 2, 2)
+            rect01 = pygame.Rect(y + 4, x + 9, 8, 8)
+            rect02 = pygame.Rect(y + 7, x + 7, 6, 6)
+            rect03 = pygame.Rect(y + 9, x + 8, 3, 3)
+            pygame.draw.rect(self.screen,(0, 0, 139),rect01)
+            pygame.draw.rect(self.screen,(0, 0, 139),rect02)
+            pygame.draw.rect(self.screen,(0, 0, 139),rect03)
+            pygame.draw.rect(self.screen,WATER_COLOUR,rect1)
+            pygame.draw.rect(self.screen,WATER_COLOUR,rect2)
+            pygame.draw.rect(self.screen,WATER_COLOUR,rect3)
             self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
 
             #food
@@ -175,8 +185,18 @@ class Game():
         for i in range (len(MONEYx)):
             x = MONEYx[i] * TILES_SIZE
             y = MONEYy[i] * TILES_SIZE
-            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-            pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+            rect1 = pygame.Rect(y + 4, x + 9, 6, 4)
+            rect2 = pygame.Rect(y + 9, x + 4, 6, 4)
+            rect3 = pygame.Rect(y + 14, x + 9, 6, 4)
+            rect01 = pygame.Rect(y + 3, x + 8, 8, 6)
+            rect02 = pygame.Rect(y + 8, x + 3, 8, 6)
+            rect03 = pygame.Rect(y + 13, x + 8, 8, 6)
+            pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
+            pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
+            pygame.draw.rect(self.screen,FOOD_COLOUR,rect03)
+            pygame.draw.rect(self.screen,MONEY_COLOUR,rect1)
+            pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
+            pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
             self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
 
     def display_life(self):
@@ -271,7 +291,6 @@ def main():
                     game.piece.deplacement = 3
                 if event.key == pygame.K_DOWN:
                     game.piece.deplacement = 4
-        print(game.forbidden_cases)        
         game.update()
         game.display()
         pygame.display.update()
