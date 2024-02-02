@@ -109,6 +109,7 @@ class Game():
         self.display_corridors()
         self.piece.display(self.screen)
         self.display_object()
+        self.display_life()
 
 
     def display_object(self):
@@ -151,6 +152,10 @@ class Game():
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
             self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
+
+    def display_life(self):
+        rect = pygame.Rect(int(SCREEN_HEIGHT / TILES_SIZE), int(SCREEN_WIDTH / TILES_SIZE)-12, self.piece.vie *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,(255,0,0),rect)
 
 
     def update(self):
@@ -201,14 +206,19 @@ class Piece:
             self.position = former_position
         if forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 2 : # c'est une arme
-            self.vie += 1               # à changer
+            self.vie += 1
+            forbidden_cases[x][y]=0               # à changer
         if forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 4 : # c'est à manger
             self.manger += 5
+            forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
+            forbidden_cases[x][y]=0
 
 
 def main():
