@@ -121,20 +121,19 @@ class Piece:
 
 
 def Object:
-    def __init__(self):
-        self.colors=([(173,255,47),      #potion vert 
-                      (220,20,60),       #monstre rouge
-                      (238,130,238),     #armes violet
-                      (240,248,250),     #water
-                      (128,0,0),         #food
-                      (255,215,0)])      #tresor jaune
+    POTION_COLOUR=(173,255,47),      #potion vert 
+    MONSTER_COLOUR=(220,20,60),       #monstre rouge
+    WEAPON_COLOUR=(238,130,238),     #armes violet
+    WATER_COLOUR=(240,248,250),     #water
+    FOOD_COLOUR=(128,0,0),         #food
+    MONEY_COLOUR=(255,215,0)])      #tresor jaune
                                         
         self.shape = np.array([1])
 
 
     def display_object(self):
         #potion vert
-    
+        
         #armes violet
     
         #water
