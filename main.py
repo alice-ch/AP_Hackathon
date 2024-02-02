@@ -42,7 +42,7 @@ class Piece:
             0,
             NUMBER_OF_TILES_WIDGHT // 2 - 1,
         ]  # middle pour l'instant, à modifier
-        self.deplacement = 0 # pas de déplacement initiale (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
+        self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
         self.colour = (135,206,235) # il est bleu !!!
 
@@ -55,13 +55,13 @@ class Piece:
     def new_position(self, screen):
         former_position = np.copy(self.position)
         if self.deplacement == 1:
-            self.shape = [former_position[0] -1 ,former_position[1]  ]
+            self.shape = [former_position[0] -1, former_position[1]]
         elif self.deplacement == 2:
-            self.shape = [former_position[0] + 1 ,former_position[1] ]
+            self.shape = [former_position[0] + 1, former_position[1]]
         elif self.deplacement == 3:
-            self.shape = [former_position[0] ,former_position[1] +1]
+            self.shape = [former_position[0], former_position[1] +1]
         elif self.deplacement == 4:
-            self.shape = [former_position[0] ,former_position[1] -1 ]
+            self.shape = [former_position[0], former_position[1] -1]
 
 
         if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
