@@ -224,7 +224,7 @@ class Piece:
             self.eau+=2
             forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 4 : # c'est à manger
-            self.manger += 5
+            self.faim += 5
             forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
