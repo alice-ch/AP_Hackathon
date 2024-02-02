@@ -32,24 +32,24 @@ CORRIDORS_LENGTHy = [0,5,0,6,5,0,0]
 POTION_COLOUR=(173,255,47)      #potion vert 
 MONSTER_COLOUR=(220,20,60)      #monstre rouge
 WEAPON_COLOUR=(238,130,238)     #armes violet
-WATER_COLOUR=(240,248,250)      #water
+WATER_COLOUR=(135,206,235)      #water
 FOOD_COLOUR=(128,0,0)           #food
 MONEY_COLOUR=(255,215,0)        #tresor jaune
 
-MONEYx = [14,30,30,31,31]
-MONEYy = [14,21,22,21,22]
+MONEYy = [14,30,30,31,31]
+MONEYx = [14,21,22,21,22]
 
-POTIONx=[28,52]
-POTIONy=[17,6]
+POTIONy=[28,52]
+POTIONx=[17,6]
 
-WEAPONx=[12]
 WEAPONy=[12]
+WEAPONx=[12]
 
-FOODx = [10,24,39,51,15,29]
-FOODy = [2,1,7,4,15,15]
+FOODy = [10,24,39,51,15,29]
+FOODx = [2,1,7,4,15,15]
 
-WATERx = [6,26,42,50,16,26]
-WATERy = [2,2,6,6,13,19]
+WATERy = [6,26,42,50,16,26]
+WATERx = [2,2,6,6,13,19]
 
 
 class Game():
@@ -82,6 +82,41 @@ class Game():
         self.display_checkerboard()
         self.display_rooms()
         self.piece.display(self.screen)
+        self.display_object()
+
+
+    def display_object(self):
+            #potion vert
+        for i in range (len(POTIONx)):
+            x = POTIONx[i] * TILES_SIZE
+            y = POTIONy[i] * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen,POTION_COLOUR,rect)   
+            #armes violet
+        for i in range (len(WEAPONx)):
+            x = WEAPONx[i] * TILES_SIZE
+            y = WEAPONy[i] * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen,WEAPON_COLOUR,rect)
+            #water
+        for i in range (len(WATERx)):
+            x = WATERx[i] * TILES_SIZE
+            y = WATERy[i] * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen,WATER_COLOUR,rect)
+            #food
+        for i in range (len(FOODx)):
+            x = FOODx[i] * TILES_SIZE
+            y = FOODy[i] * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+            #tresor jaune
+        for i in range (len(MONEYx)):
+            x = MONEYx[i] * TILES_SIZE
+            y = MONEYy[i] * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+
 
     def update(self):
         self.piece.new_position(self.screen)
@@ -96,7 +131,7 @@ class Piece:
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
-        self.colour = (135,206,235) # il est bleu !!!
+        self.colour = (0,0,139) # il est bleu !!!
 
     def display(self, screen):
         x = self.position[0] * TILES_SIZE
@@ -126,24 +161,6 @@ class Piece:
         
     def has_collided(self, screen):
         return False
-
-
-def Object:
-
-                                        
-        self.shape = np.array([1])
-
-
-    def display_object(self):
-        #potion vert
-        
-        #armes violet
-    
-        #water
-    
-        #food
-    
-        #tresor jaune
 
 
 def main():
