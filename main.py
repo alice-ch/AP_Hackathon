@@ -55,13 +55,13 @@ class Piece:
     def new_position(self, screen):
         former_position = np.copy(self.position)
         if self.deplacement == 1:
-            self.shape = [former_position[0] -1 ,former_position[1]  ]
+            self.position = [former_position[0] -1 ,former_position[1]  ]
         elif self.deplacement == 2:
-            self.shape = [former_position[0] + 1 ,former_position[1] ]
+            self.position = [former_position[0] + 1 ,former_position[1] ]
         elif self.deplacement == 3:
-            self.shape = [former_position[0] ,former_position[1] +1]
+            self.position = [former_position[0] ,former_position[1] +1]
         elif self.deplacement == 4:
-            self.shape = [former_position[0] ,former_position[1] -1 ]
+            self.position = [former_position[0] ,former_position[1] -1 ]
 
 
         if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
