@@ -66,7 +66,7 @@ class Piece:
             self.shape = former_position
         
     def has_collided(self, screen):
-        return
+        return False
 
 
 def main():
@@ -90,7 +90,9 @@ def main():
                 if event.key == pygame.K_RIGHT:
                     game.piece.horizontal_direction += 1
                 if event.key == pygame.K_DOWN:
-                    game.piece.down(game.placed_pieces)
+                    game.piece.vertical_direction += -1
+                if event.key == pygame.K_UP:
+                    game.piece.vertical_direction += 1
 
         game.display()
         pygame.display.update()
