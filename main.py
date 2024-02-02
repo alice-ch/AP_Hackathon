@@ -40,20 +40,20 @@ WATER_COLOUR=(135,206,235)      #water
 FOOD_COLOUR=(128,0,0)           #food
 MONEY_COLOUR=(255,215,0)        #tresor jaune
 
-MONEYy = [14,30,30,31,31]
-MONEYx = [14,21,22,21,22]
+MONEYx = [14,30,30,31,31]
+MONEYy = [14,21,22,21,22]
 
-POTIONy=[28,52]
-POTIONx=[17,6]
+POTIONx=[28,52]
+POTIONy=[17,6]
 
-WEAPONy=[12]
 WEAPONx=[12]
+WEAPONy=[12]
 
-FOODy = [10,24,39,51,15,29]
-FOODx = [2,1,7,4,15,15]
+FOODx = [10,24,39,51,15,29]
+FOODy = [2,1,7,4,15,15]
 
-WATERy = [6,26,42,50,16,26]
-WATERx = [2,2,6,6,13,19]
+WATERx = [6,26,42,50,16,26]
+WATERy = [2,2,6,6,13,19]
 
 
 class Game():
@@ -156,7 +156,7 @@ class Game():
             y = WATERy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect)
-            self.forbidden_cases[WATERy[i]][WATERx[i]]= 3
+            self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
 
             #food
         for i in range (len(FOODx)):
@@ -176,7 +176,7 @@ class Game():
             y = MONEYy[i] * TILES_SIZE
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
-            self.forbidden_cases[MONEYy[i]][MONEYx[i]]= 5
+            self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
@@ -223,7 +223,6 @@ class Piece:
         elif self.deplacement == 4: # bas
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
-
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
