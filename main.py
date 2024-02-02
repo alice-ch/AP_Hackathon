@@ -169,6 +169,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
             self.piece.forbidden_cases[a][b]= 4
 
+            
             #monstre
         for i in range (len(self.piece.MONSTER)):
             a,b=self.piece.MONSTER[i]
@@ -189,6 +190,8 @@ class Game():
 
             self.piece.forbidden_cases[a][b]= 6
         
+            #tresor jaune
+
             #tresor jaune
         for i in range (len(self.piece.MONEY)):
             a,b=self.piece.MONEY[i]
@@ -211,27 +214,51 @@ class Game():
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-10*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
+
     
     def display_eau(self):
         rect = pygame.Rect(SCREEN_WIDTH-40*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.eau *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,WATER_COLOUR,rect)
 
+
     def display_money(self):
         rect = pygame.Rect(SCREEN_WIDTH-50*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.money *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+        x= SCREEN_WIDTH-15*TILES_SIZE 
+        y=SCREEN_HEIGHT+TILES_SIZE
+        rect1 = pygame.Rect(x + 4, y + 9, 6, 4)
+        rect2 = pygame.Rect(x + 9, y + 4, 6, 4)
+        rect3 = pygame.Rect(x + 14, y + 9, 6, 4)
+        rect01 = pygame.Rect(x + 3, y + 8, 8, 6)
+        rect02 = pygame.Rect(x + 8, y + 3, 8, 6)
+        rect03 = pygame.Rect(x + 13, y + 8, 8, 6)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect03)
+        pygame.draw.rect(self.screen,MONEY_COLOUR,rect1)
+        pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
+        pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
+
 
     def display_food(self):
         rect = pygame.Rect(SCREEN_WIDTH-30*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.faim *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+
     
     def display_xp(self):
         rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,POTION_COLOUR,rect)
 
 
+    def check_game_over(self):
+        if self.piece.vie <= 0 or self.piece.eau <= 0 or self.piece.faim <= 0:
+            self.is_running = False
+        print(self.piece.vie)
+   
     def update(self):
         self.piece.new_position(self.screen)
-
+        self.check_game_over()
+    
 
 class Piece:
     def __init__(self):
@@ -285,7 +312,6 @@ class Piece:
         elif self.deplacement == 4: # bas
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
-        
 
 
         x = self.position[0] # on est en nb de cases et pas en pixels
@@ -349,7 +375,8 @@ class Piece:
                     del self.MONEY[i]
                 i += 1
             self.forbidden_cases[y,x]=0
-        
+
+                    
         elif self.forbidden_cases[y, x] == 6:
             if len(self.WEAPON) == 0:
                 self.xp += 3
