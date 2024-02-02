@@ -1,9 +1,9 @@
-SALLES_HEIGHT = [5,5,4,6,4,12,7,9]
-SALLES_WEIGHT = [17,7,4,8,6,11,9,10]
-SALLES_LOCx = [0,21,8,11,18,23,36,47]
-SALLES_LOCy = [0,0,14,11,14,13,4,1]
+ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
+ROOMS_WEIGHT = [17,7,4,8,6,11,9,10]
+ROOMS_LOCx = [0,21,8,11,18,23,36,47]
+ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 
-PORTES_LOCx = [[15,16,17],
+DOORS_LOCx = [[15,16,17],
                [20,21,22],
                [24,24,24],
                [35,36,37],
@@ -13,7 +13,7 @@ PORTES_LOCx = [[15,16,17],
                [17,18,19],
                [22,23,24]]
 
-PORTES_LOCy = [[2,2,2],
+DOORS_LOCy = [[2,2,2],
                [2,2,2],
                [3,4,5],
                [7,7,7],
@@ -23,8 +23,17 @@ PORTES_LOCy = [[2,2,2],
                [15,15,15],
                [16,16,16]]
 
-COULOIRS_STARTx = [18,]
-COULOIRS_STARTy = [2]
+CORRIDORS_STARTx = [18,18,7,7,32,32,1]
+CORRIDORS_STARTy = [2,2,8,8,2,2,11]
 
-COULOIRS_LENGTHx = []
-COULOIRS_LENGTHy = [1]
+CORRIDORS_LENGTHx = [1,0,27,0,0,13,5]
+CORRIDORS_LENGTHy = [0,5,0,6,5,0,0]
+
+MONEYx = [14,30,30,31,31]
+MONEYy = [14,21,22,21,22]
+
+FOODx = [10,24,39,51,15,29]
+FOODy = [2,1,7,4,15,15]
+
+WATERx = [6,26,42,50,16,26]
+WATERy = [2,2,6,6,13,19]
