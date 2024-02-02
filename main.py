@@ -17,6 +17,7 @@ class Game():
     def __init__(self, screen):
         self.is_running = True
         self.screen = screen
+        self.piece = Piece()
     
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -73,6 +74,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     game = Game(screen)
+    game.piece 
 
     while game.is_running:
         pygame.display.set_caption("Rogue")
@@ -89,7 +91,7 @@ def main():
                     game.piece.horizontal_direction += 1
                 if event.key == pygame.K_DOWN:
                     game.piece.down(game.placed_pieces)
-                    
+
         game.display()
         pygame.display.update()
 
