@@ -209,7 +209,6 @@ class Piece:
         pygame.draw.rect(screen,self.colour,rect)
 
     def new_position(self, screen, forbidden_cases):
-
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
             self.position = [former_position[0], former_position[1]-1]
@@ -228,19 +227,19 @@ class Piece:
         y = self.position[1]
         if forbidden_cases[x][y]== -1 : # c'est un mur
             self.position = former_position
-        if forbidden_cases[x][y]== 1 : # c'est une potion
+        elif forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 2 : # c'est une arme
+        elif forbidden_cases[x][y]== 2 : # c'est une arme
             self.vie += 1
             forbidden_cases[x][y]=0               # à changer
-        if forbidden_cases[x][y]== 3 : # c'est de l'eau
+        elif forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 4 : # c'est à manger
+        elif forbidden_cases[x][y]== 4 : # c'est à manger
             self.faim += 5
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 5 : # c'est un trésor
+        elif forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
             forbidden_cases[x][y]=0
 
@@ -269,7 +268,7 @@ def main():
                     game.piece.deplacement = 3
                 if event.key == pygame.K_DOWN:
                     game.piece.deplacement = 4
-        print(game.forbidden_cases)        
+        print(game.forbidden_cases[1])        
         game.update()
         game.display()
         pygame.display.update()
