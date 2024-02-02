@@ -2,13 +2,13 @@ import pygame
 import random
 import numpy as np
 
-SCREEN_COLOR = (50, 50, 50)
+SCREEN_COLOR = (250, 220, 170)
 SCREEN_WIDTH = 1080
 SCREEN_HEIGHT = 540
 CLOCK_FREQUENCY = 5
 
 TILES_SIZE = 18
-TILES_COLOR = (15, 15, 15)
+TILES_COLOR = (255, 225, 170)
 
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDTH = SCREEN_WIDTH // TILES_SIZE
@@ -40,18 +40,6 @@ WATER_COLOUR = (135,206,235)      #water
 FOOD_COLOUR = (128,0,0)           #food
 MONEY_COLOUR = (255,215,0)        #tresor jaune
 MONSTER_COLOUR = (220, 20, 60)    #monstre
-
-MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
-
-POTION=[(28,17),(52,6)]
-
-WEAPON=[(12,12)]
-
-FOOD=[(10,2),(24,1),(39,4),(51,15),(29,15)]
-
-WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
-
-MONSTER = [(29, 21)]
 
 
 class Game():
@@ -112,6 +100,10 @@ class Game():
         self.display_doors()
         self.display_object()
         self.display_life()
+        self.display_eau()
+        self.display_food()
+        self.display_money()
+        self.display_xp()
         self.piece.display(self.screen)
     
     def display_object(self):
@@ -206,8 +198,24 @@ class Game():
             self.piece.forbidden_cases[a][b]= 5
 
     def display_life(self):
-        rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
+        rect = pygame.Rect(SCREEN_WIDTH-10*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
+    
+    def display_eau(self):
+        rect = pygame.Rect(SCREEN_WIDTH-40*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.eau *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,WATER_COLOUR,rect)
+
+    def display_money(self):
+        rect = pygame.Rect(SCREEN_WIDTH-50*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.money *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
+
+    def display_food(self):
+        rect = pygame.Rect(SCREEN_WIDTH-30*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.faim *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
+    
+    def display_xp(self):
+        rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,POTION_COLOUR,rect)
 
 
     def update(self):
@@ -223,15 +231,15 @@ class Piece:
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
-        self.xp = 10
-        self.money = 0
-        self.faim=10
-        self.eau=10
+        self.xp = 5
+        self.money = 2
+        self.faim=2
+        self.eau=2
         self.colour = (255,255,0) # il est bleu !!!
         self.MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
         self.POTION=[(28,17),(52,6)]
         self.WEAPON=[(12,12)]
-        self.FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
+        self.FOOD=[(10,2),(24,1),(39,5),(51,5),(29,15)]
         self.WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
         self.MONSTER = [(29, 21)]
         self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
@@ -294,7 +302,7 @@ class Piece:
             self.forbidden_cases[y,x]=0 
 
         elif self.forbidden_cases[y,x]== 3 : # c'est de l'eau
-            self.eau+=2
+            self.eau+=1
             i = 0
             while i < len(self.WATER):
                 a,b = self.WATER[i]
@@ -305,7 +313,7 @@ class Piece:
             self.forbidden_cases[y,x]=0
 
         elif self.forbidden_cases[y,x]== 4 : # c'est à manger
-            self.faim += 5
+            self.faim += 1
             self.forbidden_cases[y,x]=0
             i = 0
             while i < len(self.FOOD):
