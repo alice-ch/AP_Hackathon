@@ -68,7 +68,10 @@ class Game():
                 if (i + j) % 2 == 1:
                     rect = pygame.Rect(j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
-    
+        for i in range(3):
+            rect = pygame.Rect(0, (i+k)* TILES_SIZE, l*TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(self.screen, (255,255,255), rect)
+
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
             for j in range(ROOMS_HEIGHT[a]):
@@ -99,7 +102,7 @@ class Game():
     def display(self):
         self.display_checkerboard()
         self.display_rooms()
-        #self.display_corridors()
+        self.display_corridors()
         self.piece.display(self.screen)
         self.display_object()
 
@@ -211,7 +214,7 @@ class Piece:
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT+3*TILES_SIZE))
     clock = pygame.time.Clock()
     game = Game(screen)
     game.piece 
