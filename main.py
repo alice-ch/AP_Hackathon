@@ -254,7 +254,6 @@ class Game():
         pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
         pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
 
-
     def display_food(self):
         rect = pygame.Rect(SCREEN_WIDTH-30*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.faim *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect)
@@ -266,8 +265,6 @@ class Game():
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect1)
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect2)
         pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
-    
-
     
     def display_xp(self):
         rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
@@ -308,7 +305,8 @@ class Game():
         if self.piece.vie <= 0 or self.piece.eau <= 0 or self.piece.faim <= 0:
             self.is_running = False
             self.game_over()
-    
+
+
     def update(self):
         self.piece.new_position(self.screen)
         self.check_game_over()
