@@ -284,14 +284,36 @@ class Game():
         pygame.draw.rect(self.screen,POTION_COLOUR,rect2)
 
 
+    def game_over(self):
+        self.screen = pygame.display.set_mode((600, 500))
+        self.screen.fill(SCREEN_COLOR)
+        y = 50
+        font = pygame.font.Font(None, 36)
+        text = f"your score : {self.piece.money}"
+        score_text = font.render(text, True, (0, 0, 0))
+        self.screen.blit(score_text, (50, y))
+        pygame.display.set_caption("GAME OVER")
+        pygame.display.flip()
+        a = 1
+        while a == 1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    a = 0
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        main()
+        
+    
     def check_game_over(self):
         if self.piece.vie <= 0 or self.piece.eau <= 0 or self.piece.faim <= 0:
             self.is_running = False
-   
+            self.game_over()
+    
     def update(self):
         self.piece.new_position(self.screen)
         self.check_game_over()
     
+
 
 class Piece:
     def __init__(self):
