@@ -96,8 +96,6 @@ class Game():
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
 
-                  
-
     def display(self):
         self.display_checkerboard()
         self.display_rooms()
@@ -149,7 +147,7 @@ class Game():
 
 
     def update(self):
-        self.piece.new_position(self.screen)
+        self.piece.new_position(self.screen, self.forbidden_cases)
 
 
 class Piece:
@@ -173,7 +171,7 @@ class Piece:
         rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(screen,self.colour,rect)
 
-    def new_position(self, screen):
+    def new_position(self, screen, forbidden_cases):
 
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
@@ -192,17 +190,17 @@ class Piece:
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
-        if Game.forbidden_cases[x][y]== -1 : # c'est un mur
+        if forbidden_cases[x][y]== -1 : # c'est un mur
             self.position = former_position
-        if Game.forbidden_cases[x][y]== 1 : # c'est une potion
+        if forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
-        if Game.forbidden_cases[x][y]== 2 : # c'est une arme
+        if forbidden_cases[x][y]== 2 : # c'est une arme
             self.vie += 1               # à changer
-        if Game.forbidden_cases[x][y]== 3 : # c'est de l'eau
+        if forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
-        if Game.forbidden_cases[x][y]== 4 : # c'est à manger
+        if forbidden_cases[x][y]== 4 : # c'est à manger
             self.manger += 5
-        if Game.forbidden_cases[x][y]== 5 : # c'est un trésor
+        if forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
 
 
