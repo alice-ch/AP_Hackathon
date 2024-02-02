@@ -56,11 +56,6 @@ class Game():
         self.is_running = True
         self.screen = screen
         self.piece = Piece()
-        self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
-        for a in range(len(ROOMS_HEIGHT)):
-            for i in range(1,ROOMS_WIDTH[a]-1):
-                for j in range(1, ROOMS_HEIGHT[a]-1):
-                    self.forbidden_cases[i+ROOMS_LOCx[a],j+ROOMS_LOCy[a]] = 0
 
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -97,14 +92,14 @@ class Game():
                 for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
-                    self.forbidden_cases[CORRIDORS_STARTx[a]+i,CORRIDORS_STARTy[a]+j] = 0
+                    self.piece.forbidden_cases[CORRIDORS_STARTx[a]+i,CORRIDORS_STARTy[a]+j] = 0
     
     def display_doors(self):
         for a in range(len(DOORS_LOCx)):
             for i in range(3) :
                 rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, DOORS_COLOR, rect)
-                self.forbidden_cases[DOORS_LOCx[a][i],DOORS_LOCy[a][i]] = 0
+                self.piece.forbidden_cases[DOORS_LOCx[a][i],DOORS_LOCy[a][i]] = 0
 
 
     def display(self):
@@ -130,7 +125,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect1)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect2)
-            self.forbidden_cases[a][b]= 1
+            self.piece.forbidden_cases[a][b]= 1
 
             #armes violet
         for i in range (len(self.piece.WEAPON)):
@@ -145,7 +140,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect1)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect2)
-            self.forbidden_cases[a][b]= 2
+            self.piece.forbidden_cases[a][b]= 2
 
             #water
         for i in range (len(self.piece.WATER)):
@@ -164,7 +159,7 @@ class Game():
             pygame.draw.rect(self.screen,WATER_COLOUR,rect1)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect2)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect3)
-            self.forbidden_cases[a][b]= 3
+            self.piece.forbidden_cases[a][b]= 3
 
             #food
         for i in range (len(self.piece.FOOD)):
@@ -177,7 +172,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect1)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect2)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
-            self.forbidden_cases[a][b]= 4
+            self.piece.forbidden_cases[a][b]= 4
 
             #tresor jaune
         for i in range (len(self.piece.MONEY)):
@@ -196,14 +191,14 @@ class Game():
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect1)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
-            self.forbidden_cases[a][b]= 5
+            self.piece.forbidden_cases[a][b]= 5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
 
     def update(self):
-        self.piece.new_position(self.screen, self.forbidden_cases)
+        self.piece.new_position(self.screen)
 
 
 class Piece:
@@ -225,6 +220,11 @@ class Piece:
         self.WEAPON=[(12,12)]
         self.FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
         self.WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
+        self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
+        for a in range(len(ROOMS_HEIGHT)):
+            for i in range(1,ROOMS_WIDTH[a]-1):
+                for j in range(1, ROOMS_HEIGHT[a]-1):
+                    self.forbidden_cases[i+ROOMS_LOCx[a],j+ROOMS_LOCy[a]] = 0
 
     def display(self, screen):
         x = self.position[0] * TILES_SIZE
@@ -232,7 +232,7 @@ class Piece:
         rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(screen,self.colour,rect)
 
-    def new_position(self, screen, forbidden_cases):
+    def new_position(self, screen):
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
             self.position = [former_position[0], former_position[1]-1]
@@ -249,52 +249,51 @@ class Piece:
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
-        if forbidden_cases[y][x]== -1 : # c'est un mur
+        if self.forbidden_cases[y][x]== -1 : # c'est un mur
             self.position = former_position
 
-        elif forbidden_cases[y,x]== 1 : # c'est une potion
+        elif self.forbidden_cases[y,x]== 1 : # c'est une potion
             self.vie+=1
             for i in range (len(self.POTION)) :
                 a,b = self.POTION[i]
                 if a==x & b==y :
-                    self.POTION=self.POTION[:,i] + self.POTION[i+1,:]
-            forbidden_cases[y,x]=0
+                    del self.POTION[i]
+            self.forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 2 : # c'est une arme
+        elif self.forbidden_cases[y,x]== 2 : # c'est une arme
             self.vie += 1
-            forbidden_cases[y,x]=0               # à changer
+            self.forbidden_cases[y,x]=0               # à changer
             for i in range (len(self.WEAPON)) :
                 a,b = self.POTION[i]
                 if a==x & b==y :
                     self.WEAPON=self.WEAPON[:,i] + self.WEAPON[i+1,:]
-            forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 3 : # c'est de l'eau
+        elif self.forbidden_cases[y,x]== 3 : # c'est de l'eau
             self.eau+=2
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
             for i in range (len(self.WATER)) :
                 a,b = self.WATER[i]
                 if a==x & b==y :
                     self.WATER=self.WATER[:,i] +self.WATER[i+1,:]
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 4 : # c'est à manger
+        elif self.forbidden_cases[y,x]== 4 : # c'est à manger
             self.faim += 5
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
             for i in range (len(self.FOOD)) :
                 a,b = self.FOOD[i]
                 if a==x & b==y :
                     self.FOOD=self.FOOD[:,i] +self.FOOD[i+1,:]
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 5 : # c'est un trésor
+        elif self.forbidden_cases[y,x]== 5 : # c'est un trésor
             self.money += 1
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
             for i in range (len(self.MONEY)) :
                 a,b = self.MONEY[i]
                 if a==x & b==y :
                     self.MONEY=self.MONEY[:,i] +self.MONEY[i+1,:]
-            forbidden_cases[y,x]=0
+            self.forbidden_cases[y,x]=0
 
 def main():
     pygame.init()
