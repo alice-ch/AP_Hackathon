@@ -105,6 +105,7 @@ class Game():
         self.display_corridors()
         self.piece.display(self.screen)
         self.display_object()
+        self.display_life()
 
 
     def display_object(self):
@@ -147,6 +148,10 @@ class Game():
             rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
             self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
+
+    def display_life(self):
+        rect = pygame.Rect(int(SCREEN_HEIGHT / TILES_SIZE), int(SCREEN_WIDTH / TILES_SIZE)-12, self.piece.vie *TILES_SIZE, TILES_SIZE)
+        pygame.draw.rect(self.screen,(255,0,0),rect)
 
 
     def update(self):
