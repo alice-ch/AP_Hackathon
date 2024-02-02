@@ -170,7 +170,7 @@ class Piece:
         self.xp = 10
         self.money = 0
         self.faim=10
-        self.soif=10
+        self.eau=10
         self.colour = (0,0,139) # il est bleu !!!
 
     def display(self, screen):
