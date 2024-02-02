@@ -107,9 +107,9 @@ class Game():
         self.display_rooms()
         self.display_corridors()
         self.display_doors()
-        self.piece.display(self.screen)
         self.display_object()
         self.display_life()
+        self.piece.display(self.screen)
     
     def display_object(self):
             #potion vert
@@ -230,8 +230,14 @@ class Piece:
     def display(self, screen):
         x = self.position[0] * TILES_SIZE
         y = self.position[1] * TILES_SIZE
-        rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-        pygame.draw.rect(screen,self.colour,rect)
+        rect1 = pygame.Rect(y, x, TILES_SIZE,TILES_SIZE)
+        rect2 = pygame.Rect(y+4, x+4,3,3)
+        rect3 = pygame.Rect(y+11, x+4,3,3)
+        rect4= pygame.Rect(y+4, x+11,10,3)
+        pygame.draw.rect(screen,self.colour,rect1)
+        pygame.draw.rect(screen,(0,0,139),rect2)
+        pygame.draw.rect(screen,(0,0,139),rect3)
+        pygame.draw.rect(screen,(0,0,139),rect4)
 
     def new_position(self, screen):
         former_position = np.copy(self.position)
@@ -259,29 +265,29 @@ class Piece:
             i = 0
             while i < len(self.POTION):
                 a,b = self.POTION[i]
-                if a==x & b==y :
+                if (a,b) == (y,x) :
                     del self.POTION[i]
                 i += 1
             self.forbidden_cases[y,x]=0
 
         elif self.forbidden_cases[y,x]== 2 : # c'est une arme
-            self.vie += 1
-            self.forbidden_cases[y,x]=0               # à changer
+            self.vie += 1            
             i = 0
             while i < len(self.WEAPON):
                 a,b = self.WEAPON[i]
                 if a==x & b==y :
                     del self.WEAPON[i]
                 i += 1
+            self.forbidden_cases[y,x]=0 
 
         elif self.forbidden_cases[y,x]== 3 : # c'est de l'eau
             self.eau+=2
-            self.forbidden_cases[y,x]=0
             i = 0
             while i < len(self.WATER):
                 a,b = self.WATER[i]
-                if a==x & b==y :
+                if (a,b) == (y,x) :
                     del self.WATER[i]
+                    
                 i += 1
             self.forbidden_cases[y,x]=0
 
@@ -291,8 +297,9 @@ class Piece:
             i = 0
             while i < len(self.FOOD):
                 a,b = self.FOOD[i]
-                if a==x & b==y :
+                if (a,b)==(y,x):
                     del self.FOOD[i]
+                    print(1)
                 i += 1
             self.forbidden_cases[y,x]=0
 
@@ -302,7 +309,7 @@ class Piece:
             i = 0
             while i < len(self.MONEY):
                 a,b = self.MONEY[i]
-                if a==x & b==y :
+                if (a,b) == (y,x) :
                     del self.MONEY[i]
                 i += 1
             self.forbidden_cases[y,x]=0
