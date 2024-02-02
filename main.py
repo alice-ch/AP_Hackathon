@@ -16,6 +16,7 @@ NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 ROOMS_COLOR = (230, 230, 250)
 WALLS_COLOR = (150,131,236)
 CORRIDORS_COLOR = (176,242,182) # vert clair
+DOORS_COLOR = (255,223,186) # orange
 
 ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
 ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
@@ -94,13 +95,20 @@ class Game():
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
 
 
-    def display_corridors(self): # vert clair
+    def display_corridors(self):
         for a in range(len(CORRIDORS_STARTx)):
             for i in range(CORRIDORS_LENGTHx[a]):
                 for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
+    
+    def display_doors(self):
+        for a in range(len(DOORS_LOCx)):
+            for i in range(3) :
+                rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+                pygame.draw.rect(self.screen, DOORS_COLOR, rect)
+                self.forbidden_cases[DOORS_LOCx[a][i]][DOORS_LOCy[a][i]] = 0
 
 
     def display(self):
@@ -109,6 +117,7 @@ class Game():
         self.display_corridors()
         self.piece.display(self.screen)
         self.display_object()
+        self.display_doors()
 
 
     def display_object(self):
