@@ -272,7 +272,7 @@ class Piece:
             for i in range (len(WATER)) :
                 a,b = WATER[i]
                 if a==x & b==y :
-                    WATER=WATER[:,i] +WATER[i+1,:]
+                    WATER=WATER[:,i-1] +WATER[i+1,:]
             forbidden_cases[x][y]=0
 
         elif forbidden_cases[x][y]== 4 : # c'est à manger
