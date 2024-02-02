@@ -84,13 +84,13 @@ class Game():
             pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
         #affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a])
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*ROOMS_HEIGHT[a])
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_HEIGHT[a], TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*ROOMS_HEIGHT[a])
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)       
-            rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
     
     def display_corridors(self):
