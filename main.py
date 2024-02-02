@@ -274,12 +274,16 @@ class Piece:
         elif self.deplacement == 4: # bas
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
+        
 
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
         if self.forbidden_cases[y][x]== -1 : # c'est un mur
             self.position = former_position
+        elif self.forbidden_cases[y][x]== 0 :
+            self.faim -= 0.01
+            self.eau -= 0.01
 
         elif self.forbidden_cases[y,x]== 1 : # c'est une potion
             self.vie+=1
