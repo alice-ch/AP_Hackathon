@@ -46,7 +46,7 @@ POTION=[(28,17),(52,6)]
 
 WEAPON=[(12,12)]
 
-FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
+FOOD=[(10,2),(24,1),(39,4),(51,15),(29,15)]
 
 WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
 
@@ -152,12 +152,12 @@ class Game():
             a,b=self.piece.WATER[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(x + 4, y + 9, 7, 7)
-            rect2 = pygame.Rect(x + 7, y + 7, 5, 5)
-            rect3 = pygame.Rect(x + 10, y + 5, 2, 2)
-            rect01 = pygame.Rect(x + 4, y + 9, 8, 8)
-            rect02 = pygame.Rect(x + 7, y + 7, 6, 6)
-            rect03 = pygame.Rect(x + 9, y + 8, 3, 3)
+            rect1 = pygame.Rect(y + 4, x + 9, 7, 7)
+            rect2 = pygame.Rect(y + 7, x + 7, 5, 5)
+            rect3 = pygame.Rect(y + 10, x + 5, 2, 2)
+            rect01 = pygame.Rect(y + 4, x + 9, 8, 8)
+            rect02 = pygame.Rect(y + 7, x + 7, 6, 6)
+            rect03 = pygame.Rect(y + 9, x + 8, 3, 3)
             pygame.draw.rect(self.screen,(0, 0, 139),rect01)
             pygame.draw.rect(self.screen,(0, 0, 139),rect02)
             pygame.draw.rect(self.screen,(0, 0, 139),rect03)
@@ -184,12 +184,12 @@ class Game():
             a,b=self.piece.MONEY[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect1 = pygame.Rect(x + 4, y + 9, 6, 4)
-            rect2 = pygame.Rect(x + 9, y + 4, 6, 4)
-            rect3 = pygame.Rect(x + 14, y + 9, 6, 4)
-            rect01 = pygame.Rect(x + 3, y + 8, 8, 6)
-            rect02 = pygame.Rect(x + 8, y + 3, 8, 6)
-            rect03 = pygame.Rect(x + 13, y + 8, 8, 6)
+            rect1 = pygame.Rect(y + 4, x + 9, 6, 4)
+            rect2 = pygame.Rect(y + 9, x + 4, 6, 4)
+            rect3 = pygame.Rect(y + 14, x + 9, 6, 4)
+            rect01 = pygame.Rect(y + 3, x + 8, 8, 6)
+            rect02 = pygame.Rect(y + 8, x + 3, 8, 6)
+            rect03 = pygame.Rect(y + 13, x + 8, 8, 6)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect03)
@@ -201,6 +201,7 @@ class Game():
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
+
 
     def update(self):
         self.piece.new_position(self.screen, self.forbidden_cases)
@@ -253,12 +254,13 @@ class Piece:
             self.position = [former_position[0]+1, former_position[1]]
             self.deplacement =0
 
+
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
         if forbidden_cases[y][x]== -1 : # c'est un mur
             self.position = former_position
 
-        elif forbidden_cases[y,x]== 1 : # c'est une potion
+        elif forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
             for i in range (len(self.POTION)) :
                 a,b = self.POTION[i]
@@ -266,7 +268,7 @@ class Piece:
                     self.POTION=self.POTION[:,i] + self.POTION[i+1,:]
             forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 2 : # c'est une arme
+        elif forbidden_cases[x][y]== 2 : # c'est une arme
             self.vie += 1
             forbidden_cases[y,x]=0               # à changer
             for i in range (len(self.WEAPON)) :
@@ -275,7 +277,7 @@ class Piece:
                     self.WEAPON=self.WEAPON[:,i] + self.WEAPON[i+1,:]
             forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 3 : # c'est de l'eau
+        elif forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
             forbidden_cases[y,x]=0
             for i in range (len(self.WATER)) :
@@ -284,7 +286,7 @@ class Piece:
                     self.WATER=self.WATER[:,i] +self.WATER[i+1,:]
             forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 4 : # c'est à manger
+        elif forbidden_cases[x][y]== 4 : # c'est à manger
             self.faim += 5
             forbidden_cases[y,x]=0
             for i in range (len(self.FOOD)) :
@@ -293,7 +295,7 @@ class Piece:
                     self.FOOD=self.FOOD[:,i] +self.FOOD[i+1,:]
             forbidden_cases[y,x]=0
 
-        elif forbidden_cases[y,x]== 5 : # c'est un trésor
+        elif forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
             forbidden_cases[y,x]=0
             for i in range (len(self.MONEY)) :
