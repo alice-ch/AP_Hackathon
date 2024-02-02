@@ -116,12 +116,11 @@ class Game():
         self.display_checkerboard()
         self.display_rooms()
         self.display_corridors()
+        self.display_doors()
         self.piece.display(self.screen)
         self.display_object()
         self.display_life()
-        self.display_doors()
-
-
+    
     def display_object(self):
             #potion vert
         for i in range (len(POTIONx)):
@@ -227,7 +226,7 @@ class Piece:
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
-        if forbidden_cases[x][y]== -1 : # c'est un mur
+        if forbidden_cases[y][x]== -1 : # c'est un mur
             self.position = former_position
         elif forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
