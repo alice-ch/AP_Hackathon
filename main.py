@@ -24,7 +24,7 @@ ROOMS_LOCx = [0,21,8,11,18,23,36,47]
 ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 
 DOORS_LOCx = [[15,16,17],[20,21,22],[24,24,24],[35,36,37],[46,47,48],[7,8,9],[10,11,12],[17,18,19],[22,23,24]]
-DOORS_LOCy = [[2,2,2],[2,2,2],[3,4,5],[7,7,7],[2,2,2],[15,15,15],[16,16,16],[15,15,15],[16,16,16]]
+DOORS_LOCy = [[2,2,2],[2,2,2],[3,4,5],[8,8,8],[2,2,2],[15,15,15],[16,16,16],[15,15,15],[16,16,16]]
 
 CORRIDORS_STARTx = [18,18,7,7,32,32,1]
 CORRIDORS_STARTy = [2,2,8,8,2,2,11]
@@ -102,14 +102,14 @@ class Game():
                 for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
-                    self.forbidden_cases[i][j] = 0
+                    self.forbidden_cases[i,j] = 0
     
     def display_doors(self):
         for a in range(len(DOORS_LOCx)):
             for i in range(3) :
                 rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, DOORS_COLOR, rect)
-                self.forbidden_cases[DOORS_LOCx[a][i]][DOORS_LOCy[a][i]] = 0
+                self.forbidden_cases[DOORS_LOCy[a][i],DOORS_LOCx[a][i]] = 0
 
 
     def display(self):
@@ -119,6 +119,7 @@ class Game():
         self.piece.display(self.screen)
         self.display_object()
         self.display_life()
+        self.display_doors()
 
 
     def display_object(self):
@@ -223,7 +224,7 @@ class Piece:
             self.eau+=2
             forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 4 : # c'est à manger
-            self.manger += 5
+            self.faim += 5
             forbidden_cases[x][y]=0
         if forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
