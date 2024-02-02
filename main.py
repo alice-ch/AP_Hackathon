@@ -215,12 +215,15 @@ class Game():
         rect = pygame.Rect(SCREEN_WIDTH-20*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.xp *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,POTION_COLOUR,rect)
 
+    def check_game_over(self):
+        if self.piece.vie <= 0 or self.piece.eau <= 0 or self.piece.faim <= 0:
+            self.is_running = False
+        print(self.piece.vie)
+   
     def update(self):
         self.piece.new_position(self.screen)
-
-    def check_game_over(self):
-        if self.piece.vie == 0 or self.piece.eau == 0 or self.piece.faim == 0:
-            self.is_running = False
+        self.check_game_over()
+    
 
 
 class Piece:
