@@ -79,7 +79,7 @@ class Game():
         for a in range(len(ROOMS_HEIGHT)):
             for i in range(1,ROOMS_HEIGHT[a]-1):
                 for j in range(1, ROOMS_WIDGHT[a]-1):
-                    self.forbidden_cases[i,j] = 0
+                    self.forbidden_cases[j+ROOMS_LOCy[a],i+ROOMS_LOCx[a]] = 0
 
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
@@ -254,7 +254,7 @@ def main():
                     game.piece.deplacement = 3
                 if event.key == pygame.K_DOWN:
                     game.piece.deplacement = 4
-                
+        print(game.forbidden_cases)        
         game.update()
         game.display()
         pygame.display.update()
