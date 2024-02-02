@@ -148,18 +148,10 @@ class Game():
             self.forbidden_cases[x][y]= 2
 
             #water
-<<<<<<< HEAD
         for i in range (len(WATER)):
             a,b=WATER[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect = pygame.Rect(x, y, TILES_SIZE, TILES_SIZE)
-            pygame.draw.rect(self.screen,WATER_COLOUR,rect)
-            self.forbidden_cases[x][y]= 3
-=======
-        for i in range (len(WATERx)):
-            x = WATERx[i] * TILES_SIZE
-            y = WATERy[i] * TILES_SIZE
             rect1 = pygame.Rect(y + 4, x + 9, 7, 7)
             rect2 = pygame.Rect(y + 7, x + 7, 5, 5)
             rect3 = pygame.Rect(y + 10, x + 5, 2, 2)
@@ -173,7 +165,6 @@ class Game():
             pygame.draw.rect(self.screen,WATER_COLOUR,rect2)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect3)
             self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
->>>>>>> 8ac20ec89d6b25abb10d3125736cc1025cc333e5
 
             #food
         for i in range (len(FOOD)):
@@ -189,18 +180,10 @@ class Game():
             self.forbidden_cases[x][y]= 4
 
             #tresor jaune
-<<<<<<< HEAD
         for i in range (len(MONEY)):
             a,b=MONEY[i]
             x = a * TILES_SIZE
             y = b * TILES_SIZE
-            rect = pygame.Rect(x, y, TILES_SIZE, TILES_SIZE)
-            pygame.draw.rect(self.screen,MONEY_COLOUR,rect)
-            self.forbidden_cases[x][y]= 5
-=======
-        for i in range (len(MONEYx)):
-            x = MONEYx[i] * TILES_SIZE
-            y = MONEYy[i] * TILES_SIZE
             rect1 = pygame.Rect(y + 4, x + 9, 6, 4)
             rect2 = pygame.Rect(y + 9, x + 4, 6, 4)
             rect3 = pygame.Rect(y + 14, x + 9, 6, 4)
@@ -214,7 +197,6 @@ class Game():
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
             self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
->>>>>>> 8ac20ec89d6b25abb10d3125736cc1025cc333e5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
