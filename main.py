@@ -3,8 +3,8 @@ import random
 import numpy as np
 
 SCREEN_COLOR = (50, 50, 50)
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1320
+SCREEN_HEIGHT = 660
 CLOCK_FREQUENCY = 5
 
 TILES_SIZE = 22
@@ -57,9 +57,7 @@ class Game():
         for i in range(k):
             for j in range(l):
                 if (i + j) % 2 == 1:
-                    rect = pygame.Rect(
-                        j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE
-                    )
+                    rect = pygame.Rect(j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
     
     def display_rooms(self):
@@ -68,11 +66,13 @@ class Game():
                 for i in range(ROOMS_WIDGHT[a]):
                     rect = pygame.Rect((ROOMS_LOCx[a]+ i)* TILES_SIZE, (ROOMS_LOCy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
-                    self.forbidden_cases[i][j] = 0
+                   # self.forbidden_cases[ROOMS_LOCx[a]+ i-1][ROOMS_LOCy[a]+ j-1] = -1
+
 
     def display(self):
         self.display_checkerboard()
         self.display_rooms()
+        #self.display_corridors()
         self.piece.display(self.screen)
 
     def update(self):
@@ -118,29 +118,6 @@ class Piece:
         
     def has_collided(self, screen):
         return False
-
-
-def Object:
-    POTION_COLOUR=(173,255,47),      #potion vert 
-    MONSTER_COLOUR=(220,20,60),       #monstre rouge
-    WEAPON_COLOUR=(238,130,238),     #armes violet
-    WATER_COLOUR=(240,248,250),     #water
-    FOOD_COLOUR=(128,0,0),         #food
-    MONEY_COLOUR=(255,215,0)])      #tresor jaune
-                                        
-        self.shape = np.array([1])
-
-
-    def display_object(self):
-        #potion vert
-        
-        #armes violet
-    
-        #water
-    
-        #food
-    
-        #tresor jaune
 
 
 def main():
