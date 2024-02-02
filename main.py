@@ -39,6 +39,7 @@ WEAPON_COLOUR = (238,130,238)     #armes violet
 WATER_COLOUR = (135,206,235)      #water
 FOOD_COLOUR = (128,0,0)           #food
 MONEY_COLOUR = (255,215,0)        #tresor jaune
+MONSTER_COLOUR = (220, 20, 60)    #monstre
 
 MONEY=[(14,14),(30,21),(30,22),(31,21),(31,22)]
 
@@ -49,6 +50,8 @@ WEAPON=[(12,12)]
 FOOD=[(10,2),(24,1),(39,4),(51,15),(29,15)]
 
 WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
+
+MONSTER = [(29, 21)]
 
 
 class Game():
@@ -174,6 +177,15 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
             self.piece.forbidden_cases[a][b]= 4
 
+            #monstre
+        for i in range (len(self.piece.MONSTER)):
+            a,b=self.piece.MONSTER[i]
+            x = a * TILES_SIZE
+            y = b * TILES_SIZE
+            rect1 = pygame.Rect(x + 8, y + 8, 10, 10)
+            pygame.draw.rect(self.screen,MONSTER_COLOUR,rect1)
+            self.piece.forbidden_cases[a][b]= 6
+        
             #tresor jaune
         for i in range (len(self.piece.MONEY)):
             a,b=self.piece.MONEY[i]
@@ -221,6 +233,7 @@ class Piece:
         self.WEAPON=[(12,12)]
         self.FOOD=[(10,2),(24,1),(39,5),(51,15),(29,15)]
         self.WATER=[(6,2),(26,2),(42,6),(50,6),(16,13),(26,19)]
+        self.MONSTER = [(29, 21)]
         self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
         for a in range(len(ROOMS_HEIGHT)):
             for i in range(1,ROOMS_WIDTH[a]-1):
@@ -313,6 +326,19 @@ class Piece:
                     del self.MONEY[i]
                 i += 1
             self.forbidden_cases[y,x]=0
+        
+        elif self.forbidden_cases[y, x] == 6:
+            if len(WEAPON) == 0:
+                self.xp += 3
+                i = 0
+                while i < len(self.MONEY):
+                    a,b = self.MONEY[i]
+                    if (a,b) == (y,x) :
+                        del self.MONEY[i]
+                    i += 1
+                self.forbidden_cases[y,x]=0
+            else:
+                self.vie -= 5
 
 def main():
     pygame.init()
