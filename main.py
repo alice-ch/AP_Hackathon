@@ -11,26 +11,26 @@ TILES_SIZE = 18
 TILES_COLOR = (15, 15, 15)
 
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
-NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
+NUMBER_OF_TILES_WIDTH = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_COLOR = (230, 230, 250)
 WALLS_COLOR = (150,131,236)
 CORRIDORS_COLOR = (176,242,182) # vert clair
 DOORS_COLOR = (255,223,186) # orange
 
-ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
-ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
+ROOMS_HEIGHT = [5,5,4,7,4,12,7,9]
+ROOMS_WIDTH = [17,7,4,8,6,11,9,10]
 ROOMS_LOCx = [0,21,8,11,18,23,36,47]
 ROOMS_LOCy = [0,0,14,11,14,13,4,1]
 
 DOORS_LOCx = [[15,16,17],[20,21,22],[24,24,24],[35,36,37],[46,47,48],[7,8,9],[10,11,12],[17,18,19],[22,23,24]]
 DOORS_LOCy = [[2,2,2],[2,2,2],[3,4,5],[8,8,8],[2,2,2],[15,15,15],[16,16,16],[15,15,15],[16,16,16]]
 
-CORRIDORS_STARTx = [18,18,7,7,32,32,1]
-CORRIDORS_STARTy = [2,2,8,8,2,2,11]
+CORRIDORS_STARTx = [18,18,7,7,32,32,1,24]
+CORRIDORS_STARTy = [2,2,8,8,2,2,11,6]
 
-CORRIDORS_LENGTHx = [2,1,28,1,1,14,6]
-CORRIDORS_LENGTHy = [1,6,1,7,6,1,1]
+CORRIDORS_LENGTHx = [2,1,28,1,1,14,6,1]
+CORRIDORS_LENGTHy = [1,6,1,7,6,1,1,2]
 
 
 POTION_COLOUR=(173,255,47)      #potion vert 
@@ -40,20 +40,20 @@ WATER_COLOUR=(135,206,235)      #water
 FOOD_COLOUR=(128,0,0)           #food
 MONEY_COLOUR=(255,215,0)        #tresor jaune
 
-MONEYy = [14,30,30,31,31]
-MONEYx = [14,21,22,21,22]
+MONEYx = [14,30,30,31,31]
+MONEYy = [14,21,22,21,22]
 
-POTIONy=[28,52]
-POTIONx=[17,6]
+POTIONx=[28,52]
+POTIONy=[17,6]
 
-WEAPONy=[12]
 WEAPONx=[12]
+WEAPONy=[12]
 
-FOODy = [10,24,39,51,15,29]
-FOODx = [2,1,7,4,15,15]
+FOODx = [10,24,39,51,15,29]
+FOODy = [2,1,7,4,15,15]
 
-WATERy = [6,26,42,50,16,26]
-WATERx = [2,2,6,6,13,19]
+WATERx = [6,26,42,50,16,26]
+WATERy= [2,2,6,6,13,19]
 
 
 class Game():
@@ -61,8 +61,12 @@ class Game():
         self.is_running = True
         self.screen = screen
         self.piece = Piece()
-        self.forbidden_cases = np.full((NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), -1)
-    
+        self.forbidden_cases = np.full((NUMBER_OF_TILES_WIDTH, NUMBER_OF_TILES_HEIGHT), -1)
+        for a in range(len(ROOMS_HEIGHT)):
+            for i in range(1,ROOMS_WIDTH[a]-1):
+                for j in range(1, ROOMS_HEIGHT[a]-1):
+                    self.forbidden_cases[i+ROOMS_LOCx[a],j+ROOMS_LOCy[a]] = 0
+
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
         k, l = int(SCREEN_HEIGHT / TILES_SIZE), int(SCREEN_WIDTH / TILES_SIZE)
@@ -75,26 +79,22 @@ class Game():
             rect = pygame.Rect(0, (i+k)* TILES_SIZE, l*TILES_SIZE, TILES_SIZE)
             pygame.draw.rect(self.screen, (255,255,255), rect)
     
-    def update_forbidden_cases(self):
-        for a in range(len(ROOMS_HEIGHT)):
-            for i in range(1,ROOMS_HEIGHT[a]-1):
-                for j in range(1, ROOMS_WIDGHT[a]-1):
-                    self.forbidden_cases[j+ROOMS_LOCy[a],i+ROOMS_LOCx[a]] = 0
 
     def display_rooms(self):
         for a in range(len(ROOMS_HEIGHT)):
-            rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDGHT[a], TILES_SIZE*ROOMS_HEIGHT[a])
+            rect = pygame.Rect((ROOMS_LOCx[a])* TILES_SIZE, (ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*ROOMS_WIDTH[a], TILES_SIZE*ROOMS_HEIGHT[a])
             pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
-        #affichage des fonds de salles
+        # affichage des fonds de salles
         for a in range(len(ROOMS_HEIGHT)):
             rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]-1))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDTH[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDGHT[a]-1)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]))
+            rect = pygame.Rect((ROOMS_LOCx[a]+ROOMS_WIDTH[a]-1)*TILES_SIZE,(ROOMS_LOCy[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE*(ROOMS_HEIGHT[a]))
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)       
-            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDGHT[a]-1), TILES_SIZE)
+            rect = pygame.Rect((ROOMS_LOCx[a])*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]-1) * TILES_SIZE, TILES_SIZE*(ROOMS_WIDTH[a]-1), TILES_SIZE)
             pygame.draw.rect(self.screen, WALLS_COLOR, rect)
+        # affichage des murs
     
     def display_corridors(self):
         for a in range(len(CORRIDORS_STARTx)):
@@ -102,35 +102,34 @@ class Game():
                 for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                     pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
-                    self.forbidden_cases[i,j] = 0
+                    self.forbidden_cases[CORRIDORS_STARTx[a]+i,CORRIDORS_STARTy[a]+j] = 0
     
     def display_doors(self):
         for a in range(len(DOORS_LOCx)):
             for i in range(3) :
                 rect = pygame.Rect(DOORS_LOCx[a][i]* TILES_SIZE, DOORS_LOCy[a][i] * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, DOORS_COLOR, rect)
-                self.forbidden_cases[DOORS_LOCy[a][i],DOORS_LOCx[a][i]] = 0
+                self.forbidden_cases[DOORS_LOCx[a][i],DOORS_LOCy[a][i]] = 0
 
 
     def display(self):
         self.display_checkerboard()
         self.display_rooms()
         self.display_corridors()
+        self.display_doors()
         self.piece.display(self.screen)
         self.display_object()
         self.display_life()
-        self.display_doors()
-
-
+    
     def display_object(self):
             #potion vert
         for i in range (len(POTIONx)):
             x = POTIONx[i] * TILES_SIZE
             y = POTIONy[i] * TILES_SIZE
-            rect01 = pygame.Rect(y + 2, x + 6, 10, 10)
-            rect02 = pygame.Rect(y + 4, x + 1, 5, 8)
-            rect1 = pygame.Rect(y + 3, x + 7, 8, 8)
-            rect2 = pygame.Rect(y + 5, x + 2, 3, 6)
+            rect01 = pygame.Rect(x + 2, y + 6, 10, 10)
+            rect02 = pygame.Rect(x + 4, y + 1, 5, 8)
+            rect1 = pygame.Rect(x + 3, y + 7, 8, 8)
+            rect2 = pygame.Rect(x + 5, y + 2, 3, 6)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect1)
@@ -141,10 +140,10 @@ class Game():
         for i in range (len(WEAPONx)):
             x = WEAPONx[i] * TILES_SIZE
             y = WEAPONy[i] * TILES_SIZE
-            rect01 = pygame.Rect(y + 7, x + 1, 4, 16)
-            rect02 = pygame.Rect(y + 4, x + 11, 10, 4)
-            rect1 = pygame.Rect(y + 8, x + 2, 2, 14)
-            rect2 = pygame.Rect(y + 5, x + 12, 8, 2)
+            rect01 = pygame.Rect(x + 7, y + 1, 4, 16)
+            rect02 = pygame.Rect(x + 4, y + 11, 10, 4)
+            rect1 = pygame.Rect(x + 8, y + 2, 2, 14)
+            rect2 = pygame.Rect(x + 5, y + 12, 8, 2)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect01)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect1)
@@ -173,9 +172,9 @@ class Game():
         for i in range (len(FOODx)):
             x = FOODx[i] * TILES_SIZE
             y = FOODy[i] * TILES_SIZE
-            rect1 = pygame.Rect(y + 2, x + 8, 8, 8)
-            rect2 = pygame.Rect(y + 9, x + 6, 5, 2)
-            rect3 = pygame.Rect(y + 10, x + 4, 2, 3)
+            rect1 = pygame.Rect(x + 2, y + 8, 8, 8)
+            rect2 = pygame.Rect(x + 9, y + 6, 5, 2)
+            rect3 = pygame.Rect(x + 10, y + 4, 2, 3)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect1)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect2)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
@@ -213,7 +212,7 @@ class Piece:
         self.shape = np.array([1])
         self.position = [
             2,
-            NUMBER_OF_TILES_WIDGHT // 2 - 6,
+            NUMBER_OF_TILES_WIDTH // 2 - 6,
         ]  # middle pour l'instant, à modifier
         self.deplacement = 0 # pas de déplacement initial (prend des valeurs entre 0 et 4, 0 à l'arret, 1G, 2D, 3H, 4B)
         self.vie = 5 # barre de vie qui est vouée à décroitre (ou augmenter)
@@ -230,7 +229,6 @@ class Piece:
         pygame.draw.rect(screen,self.colour,rect)
 
     def new_position(self, screen, forbidden_cases):
-
         former_position = np.copy(self.position)
         if self.deplacement == 1: # gauche
             self.position = [former_position[0], former_position[1]-1]
@@ -248,21 +246,21 @@ class Piece:
 
         x = self.position[0] # on est en nb de cases et pas en pixels
         y = self.position[1]
-        if forbidden_cases[x][y]== -1 : # c'est un mur
+        if forbidden_cases[y][x]== -1 : # c'est un mur
             self.position = former_position
-        if forbidden_cases[x][y]== 1 : # c'est une potion
+        elif forbidden_cases[x][y]== 1 : # c'est une potion
             self.vie+=1
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 2 : # c'est une arme
+        elif forbidden_cases[x][y]== 2 : # c'est une arme
             self.vie += 1
             forbidden_cases[x][y]=0               # à changer
-        if forbidden_cases[x][y]== 3 : # c'est de l'eau
+        elif forbidden_cases[x][y]== 3 : # c'est de l'eau
             self.eau+=2
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 4 : # c'est à manger
+        elif forbidden_cases[x][y]== 4 : # c'est à manger
             self.faim += 5
             forbidden_cases[x][y]=0
-        if forbidden_cases[x][y]== 5 : # c'est un trésor
+        elif forbidden_cases[x][y]== 5 : # c'est un trésor
             self.money += 1
             forbidden_cases[x][y]=0
 
