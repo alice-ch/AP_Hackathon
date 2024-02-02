@@ -13,6 +13,13 @@ TILES_COLOR = (15, 15, 15)
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
+ROOMS_HEIGHT = []
+ROOMS_WIDGHT = []
+ROOMS_POSITION = []
+ROOMS = []
+
+CORRIDORS = []
+
 class Game():
     def __init__(self, screen):
         self.is_running = True
@@ -30,9 +37,15 @@ class Game():
                     )
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
     
+    def display_rooms(self):
+        for a in ROOMS
+
     def display(self):
         self.display_checkerboard()
         self.piece.display(self.screen)
+
+    def update(self):
+        self.piece.update()
 
 
 class Piece:
@@ -94,7 +107,8 @@ def main():
                     game.piece.vertical_direction += -1
                 if event.key == pygame.K_UP:
                     game.piece.vertical_direction += 1
-
+        
+        game.update()
         game.display()
         pygame.display.update()
 

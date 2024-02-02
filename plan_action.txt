@@ -11,12 +11,13 @@ Affichage de passage secret
 
 
 bonus :
+points de vie
 potion
 méchant/monstre
-points de vie
 armure
 option garder à la main
 barre en bas pour stocker les items
 clignoter quand on se prend un méchant
 changer les salles 
 on cache les salles pas encore visitées
+faire des salles pas que rectangles
