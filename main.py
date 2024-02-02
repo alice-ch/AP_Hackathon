@@ -289,7 +289,7 @@ class Game():
         self.screen.fill(SCREEN_COLOR)
         y = 50
         font = pygame.font.Font(None, 36)
-        text = f"your score : {self.piece.money}"
+        text = f"score : {self.piece.money}"
         score_text = font.render(text, True, (0, 0, 0))
         self.screen.blit(score_text, (50, y))
         pygame.display.set_caption("GAME OVER")
