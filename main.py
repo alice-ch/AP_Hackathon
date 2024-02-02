@@ -28,6 +28,14 @@ CORRIDORS_STARTy = [2,2,8,8,2,2,11]
 CORRIDORS_LENGTHx = [1,0,27,0,0,13,5]
 CORRIDORS_LENGTHy = [0,5,0,6,5,0,0]
 
+
+POTION_COLOUR=(173,255,47)      #potion vert 
+MONSTER_COLOUR=(220,20,60)      #monstre rouge
+WEAPON_COLOUR=(238,130,238)     #armes violet
+WATER_COLOUR=(240,248,250)      #water
+FOOD_COLOUR=(128,0,0)           #food
+MONEY_COLOUR=(255,215,0)        #tresor jaune
+
 MONEYx = [14,30,30,31,31]
 MONEYy = [14,21,22,21,22]
 
@@ -121,12 +129,7 @@ class Piece:
 
 
 def Object:
-    POTION_COLOUR=(173,255,47),      #potion vert 
-    MONSTER_COLOUR=(220,20,60),       #monstre rouge
-    WEAPON_COLOUR=(238,130,238),     #armes violet
-    WATER_COLOUR=(240,248,250),     #water
-    FOOD_COLOUR=(128,0,0),         #food
-    MONEY_COLOUR=(255,215,0)])      #tresor jaune
+
                                         
         self.shape = np.array([1])
 
