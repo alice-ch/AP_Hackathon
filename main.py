@@ -13,6 +13,13 @@ TILES_COLOR = (15, 15, 15)
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
+ROOMS_HEIGHT = []
+ROOMS_WIDGHT = []
+ROOMS_POSITION = []
+ROOMS = []
+
+CORRIDORS = []
+
 class Game():
     def __init__(self, screen):
         self.is_running = True
@@ -30,9 +37,16 @@ class Game():
                     )
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
     
+    def display_rooms(self):
+        for a in ROOMS:
+            return
+
     def display(self):
         self.display_checkerboard()
         self.piece.display(self.screen)
+
+    def update(self):
+        self.piece.new_position(self.screen)
 
 
 class Piece:
@@ -55,18 +69,18 @@ class Piece:
     def new_position(self, screen):
         former_position = np.copy(self.position)
         if self.deplacement == 1:
-            self.shape = [former_position[0] -1, former_position[1]]
+            self.position = [former_position[0] -1, former_position[1]]
         elif self.deplacement == 2:
-            self.shape = [former_position[0] + 1, former_position[1]]
+            self.position = [former_position[0] + 1, former_position[1]]
         elif self.deplacement == 3:
-            self.shape = [former_position[0], former_position[1] +1]
+            self.position = [former_position[0], former_position[1] +1]
         elif self.deplacement == 4:
-            self.shape = [former_position[0], former_position[1] -1]
+            self.position = [former_position[0], former_position[1] -1]
 
 
         if self.has_collided(screen) : #si il rentre dans un mur, # pour l'instant true/false mais lv up possible
-            self.shape = former_position
-
+            self.position = former_position
+        
     def has_collided(self, screen):
         return False
 
@@ -96,6 +110,7 @@ def main():
                 if event.key == pygame.K_DOWN:
                     game.piece.deplacement = 4
                 
+        game.update()
         game.display()
         pygame.display.update()
 
