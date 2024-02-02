@@ -15,6 +15,8 @@ NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
 ROOMS_COLOR = (230, 230, 250)
 WALLS_COLOR = (150,131,236)
+CORRIDORS_COLOR = (176,242,182) # vert clair
+
 ROOMS_HEIGHT = [5,5,4,6,4,12,7,9]
 ROOMS_WIDGHT = [17,7,4,8,6,11,9,10]
 ROOMS_LOCx = [0,21,8,11,18,23,36,47]
@@ -26,8 +28,8 @@ DOORS_LOCy = [[2,2,2],[2,2,2],[3,4,5],[7,7,7],[2,2,2],[15,15,15],[16,16,16],[15,
 CORRIDORS_STARTx = [18,18,7,7,32,32,1]
 CORRIDORS_STARTy = [2,2,8,8,2,2,11]
 
-CORRIDORS_LENGTHx = [1,0,27,0,0,13,5]
-CORRIDORS_LENGTHy = [0,5,0,6,5,0,0]
+CORRIDORS_LENGTHx = [2,1,28,1,1,14,6]
+CORRIDORS_LENGTHy = [1,6,1,7,6,1,1]
 
 
 POTION_COLOUR=(173,255,47)      #potion vert 
@@ -87,14 +89,16 @@ class Game():
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
                 rect = pygame.Rect((ROOMS_LOCx[a]+i)*TILES_SIZE,(ROOMS_LOCy[a]+ROOMS_HEIGHT[a]) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
                 pygame.draw.rect(self.screen, WALLS_COLOR, rect)
-    
+
+
     def display_corridors(self): # vert clair
         for a in range(len(CORRIDORS_STARTx)):
-            for j in range(CORRIDORS_LENGTHy[a]):
-                for i in range(CORRIDORS_LENGTHx[a]):
+            for i in range(CORRIDORS_LENGTHx[a]):
+                for j in range(CORRIDORS_LENGTHy[a]):
                     rect = pygame.Rect((CORRIDORS_STARTx[a]+ i)* TILES_SIZE, (CORRIDORS_STARTy[a]+ j) * TILES_SIZE, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(self.screen, ROOMS_COLOR, rect)
+                    pygame.draw.rect(self.screen, CORRIDORS_COLOR, rect)
                     self.forbidden_cases[i][j] = 0
+
 
     def display(self):
         self.display_checkerboard()
