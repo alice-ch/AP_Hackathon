@@ -154,7 +154,7 @@ class Game():
             self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
 
     def display_life(self):
-        rect = pygame.Rect(int(SCREEN_HEIGHT / TILES_SIZE), int(SCREEN_WIDTH / TILES_SIZE)-12, self.piece.vie *TILES_SIZE, TILES_SIZE)
+        rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
         pygame.draw.rect(self.screen,(255,0,0),rect)
 
 
