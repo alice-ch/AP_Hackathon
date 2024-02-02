@@ -32,6 +32,7 @@ class Game():
     
     def display(self):
         self.display_checkerboard()
+        self.piece.display(self.screen)
 
 
 class Piece:
@@ -77,7 +78,7 @@ def main():
     game.piece 
 
     while game.is_running:
-        pygame.display.set_caption("Rogue")
+        pygame.display.set_caption("Rogue by GASCO")
         clock.tick(CLOCK_FREQUENCY)
 
         for event in pygame.event.get():
