@@ -130,7 +130,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect1)
             pygame.draw.rect(self.screen,POTION_COLOUR,rect2)
-            self.forbidden_cases[x][y]= 1
+            self.forbidden_cases[a][b]= 1
 
             #armes violet
         for i in range (len(WEAPON)):
@@ -145,7 +145,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect02)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect1)
             pygame.draw.rect(self.screen,WEAPON_COLOUR,rect2)
-            self.forbidden_cases[x][y]= 2
+            self.forbidden_cases[a][b]= 2
 
             #water
         for i in range (len(WATER)):
@@ -164,7 +164,7 @@ class Game():
             pygame.draw.rect(self.screen,WATER_COLOUR,rect1)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect2)
             pygame.draw.rect(self.screen,WATER_COLOUR,rect3)
-            self.forbidden_cases[WATERx[i]][WATERy[i]]= 3
+            self.forbidden_cases[a][b]= 3
 
             #food
         for i in range (len(FOOD)):
@@ -177,7 +177,7 @@ class Game():
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect1)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect2)
             pygame.draw.rect(self.screen,FOOD_COLOUR,rect3)
-            self.forbidden_cases[x][y]= 4
+            self.forbidden_cases[a][b]= 4
 
             #tresor jaune
         for i in range (len(MONEY)):
@@ -196,7 +196,7 @@ class Game():
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect1)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect2)
             pygame.draw.rect(self.screen,MONEY_COLOUR,rect3)
-            self.forbidden_cases[MONEYx[i]][MONEYy[i]]= 5
+            self.forbidden_cases[a][b]= 5
 
     def display_life(self):
         rect = pygame.Rect(SCREEN_WIDTH-12*TILES_SIZE, SCREEN_HEIGHT+TILES_SIZE, self.piece.vie *TILES_SIZE, TILES_SIZE)
