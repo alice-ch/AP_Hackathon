@@ -25,6 +25,7 @@ class Game():
         self.is_running = True
         self.screen = screen
         self.piece = Piece()
+        self.forbidden_cases = np.full((NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), 0)
     
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -39,7 +40,7 @@ class Game():
     
     def display_rooms(self):
         for a in ROOMS:
-            return
+            self.forbidden_cases 
 
     def display(self):
         self.display_checkerboard()
